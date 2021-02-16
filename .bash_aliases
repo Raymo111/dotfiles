@@ -17,7 +17,6 @@ alias lssh='cat ~/.ssh/config'
 alias lag='cat ~/.bash_aliases | grep'
 alias lpg='cat ~/.private_aliases | grep'
 alias lbg='cat ~/.bashrc | grep'
-alias lpg='cat ~/.bash_profile | grep'
 alias lfg='cat ~/.bash_functions | grep'
 alias lsshg='cat ~/.ssh/config | grep'
 
@@ -28,6 +27,12 @@ alias eb='nano ~/.bashrc'
 #alias ep='nano ~/.bash_profile'
 alias ef='nano ~/.bash_functions'
 alias essh='nano ~/.ssh/config'
+
+## Update
+alias ua='source ~/.bash_aliases'
+alias ub='source ~/.bashrc'
+#alias up='source ~/.bash_profile'
+alias uf='source ~/.bash_functions'
 
 # Pkg
 alias updt='u'
@@ -42,6 +47,7 @@ alias spkill='sudo pkill'
 alias distro='uname -nrmo'
 alias nf='neofetch --config ~/.config/neofetch/raymolinux.conf'
 alias d='cd $homedir/Downloads'
+alias diff='diff --strip-trailing-cr'
 
 # Grep
 alias hg='history | grep'
@@ -58,6 +64,7 @@ alias fown='sudo chown -R $(whoami) ~'
 alias filecount='find . -type f | wc -l'
 alias cpv='rsync -ah --info=progress2'
 alias clsql='sudo rm -rf /root/.mysql_history'
+alias findcrlf='find . -not -type d -exec file "{}" ";" | grep CRLF'
 
 # SysCtl
 alias sctl='sudo systemctl'
@@ -70,14 +77,13 @@ alias m4r1='youtube-dl -f best -o "%(title)s.%(ext)s"'
 alias ipi='curl ifconfig.co'
 alias imgbb='/home/raymo/scripts/imgbb.sh'
 alias ds='dig +short'
-alias dl='wget -np -mpE --convert-links -e robots=off -P .'
+alias dl='wget -r -np -p -E --convert-links -e robots=off -P .'
 alias crawl='wget -r -e robots=off -np --spider'
 alias wgetlist='while read -r url filename tail; do wget -O "$filename" "$url" || err=1; done <'
 
 # Resume
-alias ur='/home/raymo/scripts/updateresume.sh'
-alias cr='cp $gitdir/raymo111.github.io/resume.pdf $homedir/Downloads/Resume - Raymond Li.pdf'
+alias ur='/home/raymo/scripts/updateresume.sh && /home/raymo/scripts/downloadcoopresume.sh'
 
 # Date
 alias nicedate="date +'%F %T %Z'"
-alias touchh='/homr/raymo/scripts/touch.sh'
+alias touchh='/home/raymo/scripts/touch.sh'
