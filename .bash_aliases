@@ -43,11 +43,13 @@ alias uinst='sudo apt purge -y --auto-remove --show-progress'
 # Bash
 alias r='fc -s'
 alias cls='clear'
+alias stealth='set +o history'
 alias spkill='sudo pkill'
 alias distro='uname -nrmo'
 alias nf='neofetch --config ~/.config/neofetch/raymolinux.conf'
 alias d='cd $homedir/Downloads'
 alias diff='diff --strip-trailing-cr'
+alias py='python3'
 
 # Grep
 alias hg='history | grep'
@@ -72,8 +74,7 @@ alias uctl='systemctl --user'
 
 # Net
 alias m3r='youtube-dl -x -f bestaudio --audio-format mp3 -o "%(title)s.%(ext)s"'
-alias m4r='youtube-dl -f bestvideo+bestaudio -o "%(title)s.%(ext)s"'
-alias m4r1='youtube-dl -f best -o "%(title)s.%(ext)s"'
+alias m4r='youtube-dl -o "%(title)s.%(ext)s"'
 alias ipi='curl ifconfig.co'
 alias imgbb='/home/raymo/scripts/imgbb.sh'
 alias ds='dig +short'
@@ -81,9 +82,10 @@ alias dl='wget -r -np -p -E --convert-links -e robots=off -P .'
 alias crawl='wget -r -e robots=off -np --spider'
 alias wgetlist='while read -r url filename tail; do wget -O "$filename" "$url" || err=1; done <'
 
-# Resume
-alias ur='/home/raymo/scripts/updateresume.sh && /home/raymo/scripts/downloadcoopresume.sh'
-
 # Date
 alias nicedate="date +'%F %T %Z'"
 alias touchh='/home/raymo/scripts/touch.sh'
+
+# CTF
+alias rhex='head -c 8 /dev/urandom | xxd -ps'
+
