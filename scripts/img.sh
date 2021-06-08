@@ -12,20 +12,21 @@ function copy { echo -ne "$1" | clip.exe; }
 
 path="/tmp/img/"
 ext="png"
-user="raymo"
+user="r389li"
 
 mkdir -p $path
-read -p "filename >" name
+name=$1
+[ -z "$name" ] && read -p "filename >" name
 if [[ $name == *"/"* ]]; then
-  echo "Filename cannot contain slashes for your safety, exiting..."
-  exit
+	echo "Error: Filename `$name` contains slashes."
+	exit 1
 fi
 hash wslpath && winpath="$(wslpath -m $path)/$name.$ext"
 path="$path$name.$ext"
 paste
 #file $path # sanity check
-scp $path "$user@csclub.uwaterloo.ca:www/"
-rm $path
+scp $path "$user@csclub.uwaterloo.ca:www/" || exit 1
+rm $path || echo "Error: Failed to remove `$path`."
 url="https://csclub.uwaterloo.ca/~$user/$name.$ext"
 copy $url
 echo "Done, url ($url) copied!"
