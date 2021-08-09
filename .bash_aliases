@@ -8,8 +8,8 @@ fi
 ## List
 alias la='cat ~/.bash_aliases'
 alias lp='cat ~/.private_aliases'
-alias lb='cat ~/.bashrc'
 #alias lp='cat ~/.bash_profile'
+alias lb='cat ~/.bashrc'
 alias lf='cat ~/.bash_functions'
 alias lssh='cat ~/.ssh/config'
 
@@ -21,12 +21,12 @@ alias lfg='cat ~/.bash_functions | grep'
 alias lsshg='cat ~/.ssh/config | grep'
 
 ## Edit
-alias ea='nano ~/.bash_aliases'
-alias ep='nano ~/.private_aliases'
-alias eb='nano ~/.bashrc'
-#alias ep='nano ~/.bash_profile'
-alias ef='nano ~/.bash_functions'
-alias essh='nano ~/.ssh/config'
+alias ea='vim ~/.bash_aliases'
+alias ep='vim ~/.private_aliases'
+alias eb='vim ~/.bashrc'
+#alias ep='vim ~/.bash_profile'
+alias ef='vim ~/.bash_functions'
+alias essh='vim ~/.ssh/config'
 
 ## Update
 alias ua='source ~/.bash_aliases'
@@ -61,7 +61,7 @@ alias llg='ll | grep'
 alias led='find . -type d -empty'
 alias guc="grep -v '^ *#'"
 alias rel="sed -i '/^$/d'"
-alias sn='sudo nano'
+alias sv='sudo vim'
 alias fown='sudo chown -R $(whoami) ~'
 alias filecount='find . -type f | wc -l'
 alias cpv='rsync -ah --info=progress2'
