@@ -15,9 +15,9 @@ function rotatepdfacw() {
 	pdftk $1 cat 1-endwest output $2
 }
 
-function findform() {
+function formfind() {
 	wget $1 -O "/tmp/page.html"
-	perl /usr/lib/ipetitions-bot/formfind.pl < /tmp/page.html
+	perl /home/raymo/scripts/formfind.pl < /tmp/page.html
 	rm /tmp/page.html
 }
 
@@ -32,4 +32,8 @@ function confirm() {
 			false
 			;;
 	esac
+}
+
+function fssh() {
+	sed -i "$1d" ~/.ssh/known_hosts
 }

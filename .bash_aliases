@@ -14,11 +14,11 @@ alias lf='cat ~/.bash_functions'
 alias lssh='cat ~/.ssh/config'
 
 ## Grep
-alias lag='cat ~/.bash_aliases | grep'
-alias lpg='cat ~/.private_aliases | grep'
-alias lbg='cat ~/.bashrc | grep'
-alias lfg='cat ~/.bash_functions | grep'
-alias lsshg='cat ~/.ssh/config | grep'
+alias lag='cat ~/.bash_aliases | grep -i'
+alias lpg='cat ~/.private_aliases | grep -i'
+alias lbg='cat ~/.bashrc | grep -i'
+alias lfg='cat ~/.bash_functions | grep -i'
+alias lsshg='cat ~/.ssh/config | grep -i'
 
 ## Edit
 alias ea='vim ~/.bash_aliases'
@@ -46,9 +46,9 @@ alias cls='clear'
 alias stealth='set +o history'
 alias spkill='sudo pkill'
 alias distro='uname -nrmo'
-alias nf='neofetch --config ~/.config/neofetch/raymolinux.conf'
+alias nf='neofetch'
 alias d='cd $homedir/Downloads'
-alias diff='diff --strip-trailing-cr'
+#alias diff='diff --strip-trailing-cr'
 alias py='python3'
 
 # Grep
@@ -58,9 +58,9 @@ alias lg='ls | grep'
 alias llg='ll | grep'
 
 # File
-alias led='find . -type d -empty'
-alias guc="grep -v '^ *#'"
-alias rel="sed -i '/^$/d'"
+alias led='find . -type d -empty' # List empty directories
+alias guc="grep -v '^ *#'" # Grep uncommented lines
+alias rel="sed -i '/^$/d'" # Remove empty lines
 alias sv='sudo vim'
 alias fown='sudo chown -R $(whoami) ~'
 alias filecount='find . -type f | wc -l'
@@ -75,8 +75,7 @@ alias uctl='systemctl --user'
 # Net
 alias m3r='youtube-dl -x -f bestaudio --audio-format mp3 -o "%(title)s.%(ext)s"'
 alias m4r='youtube-dl -o "%(title)s.%(ext)s"'
-alias ipi='curl ifconfig.co'
-alias imgbb='/home/raymo/scripts/imgbb.sh'
+alias ipi='curl -s ifconfig.co'
 alias ds='dig +short'
 alias dl='wget -r -np -p -E --convert-links -e robots=off -P .'
 alias crawl='wget -r -e robots=off -np --spider'
