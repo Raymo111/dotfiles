@@ -88,3 +88,7 @@ alias touchh='/home/raymo/scripts/touch.sh'
 # CTF
 alias rhex='head -c 8 /dev/urandom | xxd -ps'
 
+# Arch aliases (overwriting default ubuntu ones)
+if [ -f ~/.arch_aliases ]; then
+    . ~/.arch_aliases
+fi

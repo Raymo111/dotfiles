@@ -82,7 +82,11 @@ fi
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-alias ll='ls -lah'
+if command -v exa &> /dev/null; then
+    alias ll='exa -lab --git'
+else
+    alias ll='ls -lah'
+fi
 
 # python alias
 alias python='python3'
