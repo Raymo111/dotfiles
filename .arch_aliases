@@ -1,5 +1,5 @@
 # Pkg
-alias u='yay'
+alias updt='yay'
 alias inst='yay -S'
 alias uinst='yay -Rsu'
 alias fp='sudo rm -rf /var/lib/pacman/db.lck'

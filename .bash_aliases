@@ -8,6 +8,7 @@ fi
 ## List
 alias la='cat ~/.bash_aliases'
 alias lp='cat ~/.private_aliases'
+alias lar='cat ~/.arch_aliases'
 #alias lp='cat ~/.bash_profile'
 alias lb='cat ~/.bashrc'
 alias lf='cat ~/.bash_functions'
@@ -16,6 +17,7 @@ alias lssh='cat ~/.ssh/config'
 ## Grep
 alias lag='cat ~/.bash_aliases | grep -i'
 alias lpg='cat ~/.private_aliases | grep -i'
+alias lar='cat ~/.arch_aliases | grep -i'
 alias lbg='cat ~/.bashrc | grep -i'
 alias lfg='cat ~/.bash_functions | grep -i'
 alias lsshg='cat ~/.ssh/config | grep -i'
@@ -23,6 +25,7 @@ alias lsshg='cat ~/.ssh/config | grep -i'
 ## Edit
 alias ea='vim ~/.bash_aliases'
 alias ep='vim ~/.private_aliases'
+alias ear='vim ~/.arch_aliases'
 alias eb='vim ~/.bashrc'
 #alias ep='vim ~/.bash_profile'
 alias ef='vim ~/.bash_functions'
@@ -35,8 +38,10 @@ alias ub='source ~/.bashrc'
 alias uf='source ~/.bash_functions'
 
 # Pkg
-alias updt='u'
-alias u='sudo apt update && sudo apt full-upgrade -y --auto-remove --fix-broken --fix-missing --fix-policy --show-progress && sudo apt autoclean'
+alias u='updt'
+alias i='inst'
+alias ui='uinst'
+alias updt='sudo apt update && sudo apt full-upgrade -y --auto-remove --fix-broken --fix-missing --fix-policy --show-progress && sudo apt autoclean'
 alias inst='sudo apt install -y --auto-remove --fix-missing --fix-broken --fix-policy --show-progress --upgrade'
 alias uinst='sudo apt purge -y --auto-remove --show-progress'
 
