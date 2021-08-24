@@ -69,4 +69,4 @@ function grb() {
 	git push origin --delete $1
 }
 
-PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
