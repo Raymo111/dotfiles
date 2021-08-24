@@ -1,0 +1,9 @@
+# Pkg
+alias updt='brew update && brew upgrade'
+alias inst='brew install'
+alias uinst='brew uninstall'
+
+# Application ID
+function aid() {
+	osascript -e "id of app \"$1\""
+}
