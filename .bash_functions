@@ -2,7 +2,7 @@ function cl() {
 	DIR="$*";
 	# if no DIR given, go home
 	if [ $# -lt 1 ]; then
-		DIR=$HOME;
+		DIR=~;
 	fi;
 	builtin cd "${DIR}" && ls --color=auto
 }
@@ -25,7 +25,7 @@ function confirm() {
 	# call with a prompt string or use a default
 	read -r -p "${1:-Are you sure? [y/N]} " response
 	case "$response" in
-		[yY][eE][sS]|[yY]) 
+		[yY][eE][sS]|[yY])
 		true
 			;;
 		*)

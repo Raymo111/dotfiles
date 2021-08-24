@@ -2,8 +2,9 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+BASH_A=~/.aliases/bash
+if [ -f $BASH_A ]; then
+    . $BASH_A
 fi
 
 # If not running interactively, don't do anything
@@ -22,10 +23,6 @@ HISTCONTROL=ignoreboth
 # append to the history file, don't overwrite it
 shopt -s histappend
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-#HISTSIZE=1000
-#HISTFILESIZE=2000
-
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -36,11 +33,6 @@ shopt -s checkwinsize
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
 
 # Color Variables
 black='\[\033[0;30m\]'
@@ -104,8 +96,8 @@ fi
 
 . ~/scripts/alias_completion.sh
 
-if [ -e $HOME/.bash_functions ]; then
-  source $HOME/.bash_functions
+if [ -e ~/.bash_functions ]; then
+  source ~/.bash_functions
 fi
 
 # Eternal bash history.
@@ -125,5 +117,5 @@ PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 export KWIN_COMPOSE=X
 export GPG_TTY=$(tty)
 export EDITOR=vim
-export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CONFIG_HOME=~/.config
 export XDG_DATA_DIRS=/usr/local/share/:/usr/share/

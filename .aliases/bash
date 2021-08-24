@@ -1,41 +1,53 @@
+# Programs
+CAT=cat
+GREP='grep -i'
+EDIT=vim
+
+# File locations
+PRIV_A=~/.aliases/private
+DISTRO_A=~/.aliases/distro
+BASHRC=~/.bashrc
+BASH_FUNC=~/.bash_functions
+SSH_CONFIG=~/.ssh/config
+
 # Private Aliases
-if [ -f ~/.private_aliases ]; then
-    . ~/.private_aliases
+if [ -f $PRIV_A ]; then
+    . $PRIV_A
 fi
 
 # Public Aliases
 # Cfg
 ## List
-alias la='cat ~/.bash_aliases'
-alias lp='cat ~/.private_aliases'
-alias lar='cat ~/.arch_aliases'
-#alias lp='cat ~/.bash_profile'
-alias lb='cat ~/.bashrc'
-alias lf='cat ~/.bash_functions'
-alias lssh='cat ~/.ssh/config'
+alias la="$CAT $BASH_A"
+alias lp="$CAT $PRIV_A"
+alias lad="$CAT $DISTRO_A"
+#alias lp="$CAT ~/.bash_profile"
+alias lb="$CAT $BASHRC"
+alias lf="$CAT $BASH_FUNC"
+alias lssh="$CAT $SSH_CONFIG"
 
 ## Grep
-alias lag='cat ~/.bash_aliases | grep -i'
-alias lpg='cat ~/.private_aliases | grep -i'
-alias lar='cat ~/.arch_aliases | grep -i'
-alias lbg='cat ~/.bashrc | grep -i'
-alias lfg='cat ~/.bash_functions | grep -i'
-alias lsshg='cat ~/.ssh/config | grep -i'
+alias lag="la | $GREP"
+alias lpg="lp | $GREP"
+alias ladg="lad | $GREP"
+alias lbg="lb | $GREP"
+alias lfg="lf | $GREP"
+alias lsshg="lssh | $GREP"
 
 ## Edit
-alias ea='vim ~/.bash_aliases'
-alias ep='vim ~/.private_aliases'
-alias ear='vim ~/.arch_aliases'
-alias eb='vim ~/.bashrc'
-#alias ep='vim ~/.bash_profile'
-alias ef='vim ~/.bash_functions'
-alias essh='vim ~/.ssh/config'
+alias ea="$EDIT $BASH_A"
+alias ep="$EDIT $PRIV_A"
+alias ead="$EDIT $DISTRO_A"
+alias eb="$EDIT $BASHRC"
+#alias ep="$EDIT ~/.bash_profile"
+alias ef="$EDIT $BASH_FUNC"
+alias essh="$EDIT $SSH_CONFIG"
 
 ## Update
-alias ua='source ~/.bash_aliases'
-alias ub='source ~/.bashrc'
-#alias up='source ~/.bash_profile'
-alias uf='source ~/.bash_functions'
+alias ua=". $BASH_A"
+alias ub=". $BASHRC"
+#alias up=". ~/.bash_profile"
+alias uf=". $BASH_FUNC"
 
 # Pkg
 alias u='updt'
@@ -52,15 +64,15 @@ alias stealth='set +o history'
 alias spkill='sudo pkill'
 alias distro='uname -nrmo'
 alias nf='neofetch'
-alias d='cd $homedir/Downloads'
+alias d='cd $dldir'
 #alias diff='diff --strip-trailing-cr'
 alias py='python3'
 
 # Grep
-alias hg='history | grep'
-alias pg='pstree | grep'
-alias lg='ls | grep'
-alias llg='ll | grep'
+alias hg="history | $GREP"
+alias pg="pstree | $GREP"
+alias lg="ls | $GREP"
+alias llg="ll | $GREP"
 
 # File
 alias led='find . -type d -empty' # List empty directories
@@ -94,6 +106,6 @@ alias touchh='/home/raymo/scripts/touch.sh'
 alias rhex='head -c 8 /dev/urandom | xxd -ps'
 
 # Arch aliases (overwriting default ubuntu ones)
-if [ -f ~/.arch_aliases ]; then
-    . ~/.arch_aliases
+if [ -f $DISTRO_A ]; then
+    . $DISTRO_A
 fi
