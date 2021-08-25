@@ -20,7 +20,7 @@ if [ -e ~/.bash_functions ] || [ -e ~/.bashrc ] || \
 fi
 
 # Copy files
-cp -al .bash_functions .bashrc .selected_editor scripts ~
+cp -al .bash_functions .bashrc .selected_editor .vimrc scripts ~
 mkdir ~/.aliases/
 cp -al .aliases/bash ~/.aliases/
 
