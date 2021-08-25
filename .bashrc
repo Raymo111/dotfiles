@@ -54,7 +54,12 @@ WHITE='\[\033[1;37m\]'
 NC='\[\033[0m\]'
 
 # Prompt
-PS1="$red[$WHITE\u$red@$CYAN\h $magenta\W$red]$RED\$$NC "
+if [ "`id -u`" -eq 0 ]; then
+    PSS='#'
+else
+    PSS='$'
+fi
+PS1="$red[$WHITE\u$red@$CYAN\h $magenta\W$red]$RED$PSS$NC "
 #PS1="[\u@\h \W]\$PSS "
 PS2="$C1>$NC"
 
