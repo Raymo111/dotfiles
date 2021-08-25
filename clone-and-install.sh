@@ -9,6 +9,5 @@ fi
 cd ~
 git clone https://github.com/Raymo111/dotfiles.git
 cd dotfiles
-. ~/dotfiles/.bash_functions
-confirm "Install dotfiles? [y/N]" && ./install.sh || echo "Exiting..."
+./install.sh
 cd ..
