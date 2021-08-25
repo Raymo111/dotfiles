@@ -99,10 +99,12 @@ if ! shopt -oq posix; then
   fi
 fi
 
-. ~/scripts/alias_completion.sh
+if [ -e ~/scripts/alias_completion.sh ]; then
+    . ~/scripts/alias_completion.sh
+fi
 
 if [ -e ~/.bash_functions ]; then
-  source ~/.bash_functions
+  . ~/.bash_functions
 fi
 
 # Eternal bash history.
