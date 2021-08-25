@@ -11,7 +11,7 @@ if [ -e ~/.bash_functions ] || [ -e ~/.bashrc ] || \
     [ -e ~/.aliases ] || [ -e ~/.vimrc ]; then
     echo "Existing dotfiles found, backing up..."
     if [ -e $BACKUPDIR ]; then
-        echo "BACKUPDIR exists, exiting"
+        echo "BACKUPDIR exists, exiting..."
         exit
     fi
     mkdir $BACKUPDIR
@@ -36,4 +36,4 @@ if [[ $OSTYPE == 'darwin'* ]]; then
     cp -al .aliases/mac ~/.aliases/distro
 fi
 
-echo "Installation done."
+echo "Installation done!"
