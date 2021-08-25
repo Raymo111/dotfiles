@@ -7,7 +7,7 @@ fi
 
 # Clone repo, cd, run install
 cd ~
-git clone https://github.com/Raymo111/dotfiles.git
+git clone https://github.com/Raymo111/dotfiles.git ~/dotfiles
 cd dotfiles
 ./install.sh
 cd ..
