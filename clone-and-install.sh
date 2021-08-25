@@ -8,7 +8,6 @@ fi
 # Clone repo, cd, run install
 cd ~
 git clone https://github.com/Raymo111/dotfiles.git
-echo "Repo cloned!"
 cd dotfiles
 . ~/dotfiles/.bash_functions
 confirm "Install dotfiles? [y/N]" || echo "Exiting..." && exit
