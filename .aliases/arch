@@ -5,16 +5,5 @@ alias uinst='yay -Rsu'
 alias fp='sudo rm -rf /var/lib/pacman/db.lck'
 alias r5m='curl -s "https://archlinux.org/mirrorlist/?country=CA&country=US&protocol=https&use_mirror_status=on" | sed -e "s/^#Server/Server/" -e "/^#/d" | rankmirrors -n 5 - | sudo tee /etc/pacman.d/mirrorlist'
 
-# Cmd
-if command -v rg &> /dev/null; then
-    alias grep=rg
-fi
-if command -v bat &> /dev/null; then
-    alias cat=bat
-fi
-if command -v exa &> /dev/null; then
-    alias ls=exa
-fi
-
 # SysCtl
 alias grupdt='sudo grub-mkconfig -o /boot/grub/grub.cfg'

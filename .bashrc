@@ -66,7 +66,7 @@ PS2="$C1>$NC"
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
+    #alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
@@ -81,8 +81,19 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 # some more ls aliases
 if command -v exa &> /dev/null; then
     alias ll='exa -blaH --git'
+    alias ls=exa
 else
     alias ll='ls -lah'
+fi
+
+# ripgrep
+if command -v rg &> /dev/null; then
+    alias grep=rg
+fi
+
+# bat
+if command -v bat &> /dev/null; then
+    alias cat=bat
 fi
 
 # python alias
