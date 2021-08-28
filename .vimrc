@@ -9,3 +9,7 @@ vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 set shiftwidth=4
 set tabstop=4
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g`\"" | endif
+endif
