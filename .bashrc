@@ -4,13 +4,13 @@
 
 BASH_A=~/.aliases/bash
 if [ -f $BASH_A ]; then
-    . $BASH_A
+	. $BASH_A
 fi
 
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+	*i*) ;;
+	*) return;;
 esac
 
 #figlet "`hostname` >"
@@ -55,9 +55,9 @@ NC='\[\033[0m\]'
 
 # Prompt
 if [ "`id -u`" -eq 0 ]; then
-    PSS='#'
+	PSS='#'
 else
-    PSS='$'
+	PSS='$'
 fi
 PS1="$red[$WHITE\u$red@$CYAN\h $magenta\W$red]$RED$PSS$NC "
 #PS1="[\u@\h \W]\$PSS "
@@ -65,14 +65,14 @@ PS2="$C1>$NC"
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    #alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
+	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+	#alias ls='ls --color=auto'
+	#alias dir='dir --color=auto'
+	#alias vdir='vdir --color=auto'
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+	alias grep='grep --color=auto'
+	alias fgrep='fgrep --color=auto'
+	alias egrep='egrep --color=auto'
 fi
 
 # colored GCC warnings and errors
@@ -80,20 +80,21 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 
 # some more ls aliases
 if command -v exa &> /dev/null; then
-    alias ll='exa -blaH --git'
-    alias ls=exa
+	alias ll='exa -blaH --git'
+	alias ls=exa
 else
-    alias ll='ls -lah'
+	alias ll='ls -lah'
 fi
 
 # ripgrep
 if command -v rg &> /dev/null; then
-    alias grep=rg
+	alias grep=rg
 fi
 
 # bat
 if command -v bat &> /dev/null; then
-    alias cat=bat
+	alias cat=bat
+	export VISUAL=bat
 fi
 
 # python alias
@@ -103,19 +104,19 @@ alias python='python3'
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
+	if [ -f /usr/share/bash-completion/bash_completion ]; then
+		. /usr/share/bash-completion/bash_completion
+	elif [ -f /etc/bash_completion ]; then
+		. /etc/bash_completion
+	fi
 fi
 
 if [ -e ~/scripts/alias_completion.sh ]; then
-    . ~/scripts/alias_completion.sh
+	. ~/scripts/alias_completion.sh
 fi
 
 if [ -e ~/.bash_functions ]; then
-  . ~/.bash_functions
+	. ~/.bash_functions
 fi
 
 # Eternal bash history.
