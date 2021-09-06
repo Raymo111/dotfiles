@@ -1,4 +1,4 @@
-function cl() {
+function cl {
 	DIR="$*";
 	# if no DIR given, go home
 	if [ $# -lt 1 ]; then
@@ -7,21 +7,21 @@ function cl() {
 	builtin cd "${DIR}" && ls --color=auto
 }
 
-function rotatepdfcw() {
+function rotatepdfcw {
 	pdftk $1 cat 1-endeast output $2
 }
 
-function rotatepdfccw() {
+function rotatepdfccw {
 	pdftk $1 cat 1-endwest output $2
 }
 
-function formfind() {
+function formfind {
 	wget $1 -O "/tmp/page.html"
 	perl /home/raymo/scripts/formfind.pl < /tmp/page.html
 	rm /tmp/page.html
 }
 
-function confirm() {
+function confirm {
 	# call with a prompt string or use a default
 	read -r -p "${1:-Are you sure? [y/N]} " response
 	case "$response" in
@@ -35,11 +35,11 @@ function confirm() {
 }
 
 # Remove offending host from ssh known hosts
-function fssh() {
+function fssh {
 	sed -i "$1d" ~/.ssh/known_hosts
 }
 
-function aurcommit() {
+function aurcommit {
         MSG=$*
         if [[ -z "$1" ]]; then
                 read -p "Message: " MSG
@@ -52,7 +52,7 @@ function aurcommit() {
 }
 
 # Curecoin worth
-function cure() {
+function cure {
         r==$(curl -s https://chainz.cryptoid.info/cure/address.dws?BLHuRzniSzyzvfaDEqCeXKPsNXLRLZw9p2.htm | grep with)
         r=${r#*with }
         r=${r%</small*}
@@ -62,7 +62,7 @@ function cure() {
 }
 
 # Git rename branch
-function grb() {
+function grb {
 	git checkout $1
 	git branch -m $2
 	git push origin -u $2
