@@ -4,6 +4,7 @@ set clipboard=unnamed
 set whichwrap+=<,>,h,l,[,]
 set shiftwidth=4
 set tabstop=4
+set number
 nnoremap <expr> <Down> v:count ? 'j' : 'gj'
 nnoremap <expr> <Up> v:count ? 'k' : 'gk'
 nnoremap <expr> j v:count ? 'j' : 'gj'
