@@ -3,8 +3,15 @@
 # for examples
 
 BASH_A=~/.aliases/bash
+BASH_F=~/.bash_functions
+A_COMPL=~/scripts/alias_completion.sh
+
 if [ -f $BASH_A ]; then
 	. $BASH_A
+fi
+
+if [ -e $BASH_F ]; then
+	. $BASH_F
 fi
 
 # If not running interactively, don't do anything
@@ -111,12 +118,8 @@ if ! shopt -oq posix; then
 	fi
 fi
 
-if [ -e ~/scripts/alias_completion.sh ]; then
-	. ~/scripts/alias_completion.sh
-fi
-
-if [ -e ~/.bash_functions ]; then
-	. ~/.bash_functions
+if [ -e $A_COMPL ]; then
+	. $A_COMPL
 fi
 
 # Eternal bash history.
