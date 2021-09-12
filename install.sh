@@ -26,13 +26,19 @@ cp -al .aliases/bash ~/.aliases/
 
 # Arch
 if [ -f "/etc/arch-release" ]; then
-    echo "Arch Linux detected (btwiusearch), copying Arch-specific aliases"
+    echo "Arch Linux detected (yay!) (btwiusearch), copying Arch-specific aliases"
     cp -al .aliases/arch ~/.aliases/distro
+fi
+
+# Android
+if command -v termux-setup-storage; then
+    echo "Termux detected, copying Termux-specific aliases"
+    cp -al .aliases/termux ~/.aliases/distro
 fi
 
 # MacOS
 if [[ $OSTYPE == 'darwin'* ]]; then
-    echo "MacOS detected (btwiusearch), copying MacOS-specific aliases"
+    echo "MacOS detected, copying MacOS-specific aliases"
     cp -al .aliases/mac ~/.aliases/distro
 fi
 
