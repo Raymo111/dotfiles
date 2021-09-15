@@ -4,6 +4,7 @@ alias inst='yay -S'
 alias uinst='yay -Rsu'
 alias fp='sudo rm -rf /var/lib/pacman/db.lck'
 alias r5m='curl -s "https://archlinux.org/mirrorlist/?country=CA&country=US&protocol=https&use_mirror_status=on" | sed -e "s/^#Server/Server/" -e "/^#/d" | rankmirrors -n 5 - | sudo tee /etc/pacman.d/mirrorlist'
+alias lip='pacman -Qi | grep -P "^(Name|Install Date)" | sed -r ":a;N;s/Name\s+: (.*)\nInstall Date\s+: (.*)/\2\t\1/" | while read pkg_date pkg_name; do echo -e $(date +%F\ %T --date="$pkg_date") '\t' $pkg_name; done | sort | tail -n'
 
 # SysCtl
 alias grupdt='sudo grub-mkconfig -o /boot/grub/grub.cfg'
