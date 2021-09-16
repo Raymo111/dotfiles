@@ -84,6 +84,7 @@ alias filecount='find . -type f | wc -l'
 alias cpv='rsync -ah --info=progress2'
 alias clsql='sudo rm -rf /root/.mysql_history'
 alias findcrlf='find . -not -type d -exec file "{}" ";" | grep CRLF'
+alias tdur='exiftool -n -p \'${Duration;our$s;$_=ConvertDuration($s+=$_)}\' *|tail -n1' # Total duration of videos in directory
 
 # SysCtl
 alias sctl='sudo systemctl'
