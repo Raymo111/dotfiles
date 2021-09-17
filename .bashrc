@@ -68,6 +68,10 @@ WHITE='\[\033[1;37m\]'
 NC='\[\033[0m\]'
 
 # Prompt
+if [[ $(locale charmap) == "UTF-8" ]]; then
+	L1C=┌
+	L2C=└
+fi
 if command -v lsb_release &> /dev/null; then
 	DEB_VER="($(lsb_release -cs)) "
 fi
@@ -86,7 +90,7 @@ if [ "`id -u`" -eq 0 ]; then
 else
 	PSS='$'
 fi
-PS1="$red[$WHITE\u$red@$CYAN\h $DEB_VER$magenta\w$red]$RED$yellow$GIT_PROMPT$NC\n$PSS$NC "
+PS1="$red$L1C[$WHITE\u$red@$CYAN\h $DEB_VER$magenta\w$red]$RED$yellow$GIT_PROMPT$NC\n$red$L2C$PSS$NC "
 #PS1="[\u@\h \W]\$PSS "
 PS2="$C1>$NC"
 
