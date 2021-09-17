@@ -135,7 +135,31 @@ export HISTTIMEFORMAT="[%F %T] "
 # Force prompt to write history after every command.
 # http://superuser.com/questions/20900/bash-history-loss
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+
+# Powerline
+POWERLINE_ON=0
+if [ $POWERLINE_ON == 1 ]; then
+	PYTHON_USER_SITE=$(python -m site --user-site)
+	PYTHON_GLOBAL_SITE=$(python -c 'import site; print(site.getsitepackages()[0])')
+	if [ -d $PYTHON_USER_SITE/powerline ]; then
+		POWERLINE_ROOT=$PYTHON_USER_SITE/powerline
+	elif [ -d $PYTHON_GLOBAL_SITE/powerline ]; then
+		POWERLINE_ROOT=$PYTHON_GLOBAL_SITE/powerline
+	fi
+	if [ -n $POWERLINE_ROOT ]; then
+		POWERLINE_SH=$POWERLINE_ROOT/bindings/bash/powerline.sh
+		if [ -f $POWERLINE_SH ]; then
+			powerline-daemon -q
+			POWERLINE_BASH_CONTINUATION=1
+			POWERLINE_BASH_SELECT=1
+			. $POWERLINE_SH
+		fi
+	fi
+fi
+
+# Misc
 #export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0
+export DISPLAY=:0
 export KWIN_COMPOSE=X
 export GPG_TTY=$(tty)
 export EDITOR=vim
