@@ -10,7 +10,7 @@ if [ -f $BASH_A ]; then
 	. $BASH_A
 fi
 
-if [ -e $BASH_F ]; then
+if [ -f $BASH_F ]; then
 	. $BASH_F
 fi
 
@@ -61,12 +61,28 @@ WHITE='\[\033[1;37m\]'
 NC='\[\033[0m\]'
 
 # Prompt
+if command -v lsb_release &> /dev/null; then
+	DEB_VER="($(lsb_release -cs)) "
+fi
+GIT_COMP_DIR=/usr/share/git/completion
+GIT_COMP_BASH=$GIT_COMP_DIR/git-completion.bash
+GIT_COMP_PROMPT=$GIT_COMP_DIR/git-prompt.sh
+if [ -f $GIT_COMP_PROMPT ]; then
+	. $GIT_COMP_PROMPT
+	export GIT_PS1_SHOWDIRTYSTATE=1
+	export GIT_PS1_SHOWSTASHSTATE=1
+	export GIT_PS1_SHOWUNTRACKEDFILES=1
+	export GIT_PS1_SHOWUPSTREAM="auto"
+	export GIT_PS1_SHOWCOLORHINTS=1
+	export GIT_PS1_HIDE_IF_PWD_IGNORED=1
+	GIT_PROMPT='$(__git_ps1)'
+fi
 if [ "`id -u`" -eq 0 ]; then
 	PSS='#'
 else
 	PSS='$'
 fi
-PS1="$red[$WHITE\u$red@$CYAN\h $magenta\W$red]$RED$PSS$NC "
+PS1="$red[$WHITE\u$red@$CYAN\h $DEB_VER$magenta\w$red]$RED$yellow$GIT_PROMPT$NC\n$PSS$NC "
 #PS1="[\u@\h \W]\$PSS "
 PS2="$C1>$NC"
 
@@ -118,8 +134,11 @@ if ! shopt -oq posix; then
 	fi
 fi
 
-if [ -e $A_COMPL ]; then
+if [ -f $A_COMPL ]; then
 	. $A_COMPL
+fi
+if [ -f $GIT_COMP_BASH ]; then
+	. $GIT_COMP_BASH
 fi
 
 # Eternal bash history.
@@ -130,7 +149,7 @@ export HISTFILESIZE=
 export HISTSIZE=
 export HISTTIMEFORMAT="[%F %T] "
 # Change the file location because certain bash sessions truncate .bash_history file upon close.
-# http://superuser.com/questions/575479/bash-history-truncated-to-500-lines-on-each-logi
+# http://superuser.com/questions/575479/bash-history-truncated-to-500-lines-on-each-login
 #export HISTFILE=~/.bash_eternal_history
 # Force prompt to write history after every command.
 # http://superuser.com/questions/20900/bash-history-loss
