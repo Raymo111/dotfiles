@@ -1,14 +1,14 @@
-# Programs
-CAT=cat
-GREP='grep -i'
-EDIT=vim
-
 # File locations
 PRIV_A=~/.aliases/private
 DISTRO_A=~/.aliases/distro
 BASHRC=~/.bashrc
 BASH_FUNC=~/.bash_functions
 SSH_CONFIG=~/.ssh/config
+
+# Programs
+CAT=cat
+GREP='grep -i'
+EDIT=vim
 
 # Private Aliases
 if [ -f $PRIV_A ]; then
@@ -79,6 +79,7 @@ alias led='find . -type d -empty' # List empty directories
 alias guc="grep -v '^ *#'" # Grep uncommented lines
 alias rel="sed -i '/^$/d'" # Remove empty lines
 alias sv='sudo vim'
+alias t='sudo mv --force -t ~/.local/share/Trash/files/'
 alias fown='sudo chown -R $(whoami) ~'
 alias filecount='find . -type f | wc -l'
 alias cpv='rsync -ah --info=progress2'
@@ -93,6 +94,7 @@ alias uctl='systemctl --user'
 # Net
 alias m3r='youtube-dl -x -f bestaudio --audio-format mp3 -o "%(title)s.%(ext)s"'
 alias m4r='youtube-dl -o "%(title)s.%(ext)s"'
+alias m4d='m4r --downloader aria2c'
 alias ipi='curl -s ifconfig.co'
 alias ds='dig +short'
 alias dl='wget -r -np -p -E --convert-links -e robots=off -P .'

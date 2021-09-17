@@ -2,9 +2,16 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# File locations
 BASH_A=~/.aliases/bash
 BASH_F=~/.bash_functions
 A_COMPL=~/scripts/alias_completion.sh
+GIT_COMP_DIR=/usr/share/git/completion
+GIT_COMP_BASH=$GIT_COMP_DIR/git-completion.bash
+GIT_COMP_PROMPT=$GIT_COMP_DIR/git-prompt.sh
+export homedir=~
+export gitdir=$homedir/Git
+export dldir=$homedir/Downloads
 
 if [ -f $BASH_A ]; then
 	. $BASH_A
@@ -64,9 +71,6 @@ NC='\[\033[0m\]'
 if command -v lsb_release &> /dev/null; then
 	DEB_VER="($(lsb_release -cs)) "
 fi
-GIT_COMP_DIR=/usr/share/git/completion
-GIT_COMP_BASH=$GIT_COMP_DIR/git-completion.bash
-GIT_COMP_PROMPT=$GIT_COMP_DIR/git-prompt.sh
 if [ -f $GIT_COMP_PROMPT ]; then
 	. $GIT_COMP_PROMPT
 	export GIT_PS1_SHOWDIRTYSTATE=1

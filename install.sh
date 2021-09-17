@@ -3,6 +3,15 @@
 BACKUPDIR=~/.dotfiles_backup
 if [ -e $BACKUPDIR ]; then
     BACKUPDIR=~/.dotfiles_backup1
+    if [ -e $BACKUPDIR ]; then
+        BACKUPDIR=~/.dotfiles_backup2
+        if [ -e $BACKUPDIR ]; then
+            BACKUPDIR=~/.dotfiles_backup3
+            if [ -e $BACKUPDIR ]; then
+                BACKUPDIR=~/.dotfiles_backup4
+            fi
+        fi
+    fi
 fi
 
 # Backup
@@ -40,6 +49,11 @@ fi
 if [[ $OSTYPE == 'darwin'* ]]; then
     echo "MacOS detected, copying MacOS-specific aliases"
     cp -al .aliases/mac ~/.aliases/distro
+fi
+
+if [[ $XDG_SESSION_TYPE == "x11" ]]; then
+    echo "$XDG_SESSION_TYPE detected, copying graphical aliases"
+    cp -al .aliases/graphical ~/.aliases/graphical
 fi
 
 echo "Installation done!"
