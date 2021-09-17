@@ -50,12 +50,13 @@ alias ub=". $BASHRC"
 alias uf=". $BASH_FUNC"
 
 # Pkg
+APT='sudo apt --show-progress --auto-remove'
 alias u='updt'
 alias i='inst'
 alias ui='uinst'
-alias updt='sudo apt update && sudo apt full-upgrade -y --auto-remove --fix-broken --fix-missing --fix-policy --show-progress && sudo apt autoclean'
-alias inst='sudo apt install -y --auto-remove --fix-missing --fix-broken --fix-policy --show-progress --upgrade'
-alias uinst='sudo apt purge -y --auto-remove --show-progress'
+alias updt="$APT update && $APT full-upgrade -y --fix-broken --fix-missing --fix-policy && $APT autoclean"
+alias inst="$APT install -y --fix-missing --fix-broken --fix-policy --upgrade"
+alias uinst="$APT purge -y"
 
 # Bash
 alias r='fc -s'
@@ -92,18 +93,21 @@ alias sctl='sudo systemctl'
 alias uctl='systemctl --user'
 
 # Net
-alias m3r='youtube-dl -x -f bestaudio --audio-format mp3 -o "%(title)s.%(ext)s"'
-alias m4r='youtube-dl -o "%(title)s.%(ext)s"'
-alias m4d='m4r --downloader aria2c'
+YDL='youtube-dl -o "%(title)s.%(ext)s"'
+alias m3r="$YDL -x -f bestaudio --audio-format mp3"
+alias m4r=$YDL
+alias m4d="$YDL --downloader aria2c"
 alias ipi='curl -s ifconfig.co'
 alias ds='dig +short'
-alias dl='wget -r -np -p -E --convert-links -e robots=off -P .'
-alias crawl='wget -r -e robots=off -np --spider'
+
+# wget
+CRAWL='wget -r -e robots=off -np'
+alias dl="$CRAWL -p -E --convert-links -P ."
+alias crawl="$CRAWL --spider"
 alias wgetlist='while read -r url filename tail; do wget -O "$filename" "$url" || err=1; done <'
 
 # Date
 alias nicedate="date +'%F %T %Z'"
-alias touchh='/home/raymo/scripts/touch.sh'
 
 # CTF
 alias rhex='head -c 8 /dev/urandom | xxd -ps'
