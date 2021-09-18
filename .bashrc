@@ -9,7 +9,7 @@ A_COMPL=~/scripts/alias_completion.sh
 GIT_COMP_DIR=/usr/share/git/completion
 GIT_COMP_BASH=$GIT_COMP_DIR/git-completion.bash
 GIT_COMP_PROMPT=$GIT_COMP_DIR/git-prompt.sh
-export homedir=~
+export homedir=$HOME # For WSL where $HOME is the Linux home but I might want a Windows Home
 export gitdir=$homedir/Git
 export dldir=$homedir/Downloads
 
