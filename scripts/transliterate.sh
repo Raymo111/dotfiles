@@ -2,8 +2,7 @@
 
 # transliterate.sh
 #
-# This script uses Google Translate to scrape a transliteration of
-# Chinese characters.
+# This script uses mandarinspot.
 # FOR EDUCATIONAL PURPOSES ONLY. NOT MY RESPONSIBILITY FOR ANYTHING
 # BAD THAT YOU DO WITH THIS SCRIPT.
 #

@@ -1,9 +1,9 @@
 #!/bin/sh
 
-REPO="Honor4x"
-OLD_EMAIL="contact@raymondli.tk"
+REPO="dotfiles"
+OLD_EMAIL="old@email.com"
 CORRECT_NAME="Raymond Li"
-CORRECT_EMAIL="hi@raymond.li"
+CORRECT_EMAIL="new@email.com"
 
 git clone --bare "https://github.com/Raymo111/$REPO/"
 cd "$REPO.git"
