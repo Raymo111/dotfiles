@@ -7,10 +7,10 @@ do
 	if [[ $NAME == *"Konsole" ]]
 	then
 		FLAG=1
-		/home/raymo/scripts/keyboard/konsole.py
+		$scriptdir/keyboard/konsole.py
 	elif [[ $FLAG == 1 ]]
 	then
 		FLAG=0
-		/home/raymo/scripts/keyboard/arch.py
+		$scriptdir/keyboard/arch.py
 	fi
 done < <(xprop -spy -root _NET_ACTIVE_WINDOW)

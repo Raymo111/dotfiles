@@ -12,6 +12,8 @@ GIT_COMP_PROMPT=$GIT_COMP_DIR/git-prompt.sh
 export homedir=$HOME # For WSL where $HOME is the Linux home but I might want a Windows Home
 export gitdir=$homedir/Git
 export dldir=$homedir/Downloads
+export scriptdir=$homedir/scripts
+export rc=$homedir/raymocloud
 
 if [ -f $BASH_A ]; then
 	. $BASH_A

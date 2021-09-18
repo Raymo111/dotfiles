@@ -16,9 +16,10 @@ function rotatepdfccw {
 }
 
 function formfind {
-	wget $1 -O "/tmp/page.html"
-	perl /home/raymo/scripts/formfind.pl < /tmp/page.html
-	rm /tmp/page.html
+	tmp=$(mktemp)
+	wget $1 -O "$tmp"
+	perl $scriptdir/formfind.pl < "$tmp"
+	rm "$tmp"
 }
 
 function confirm {
