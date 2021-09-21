@@ -76,6 +76,7 @@ alias lg="ls | $GREP"
 alias llg="ll | $GREP"
 
 # File
+alias rm='rm -I'
 alias led='find . -type d -empty' # List empty directories
 alias guc="grep -v '^ *#'" # Grep uncommented lines
 alias rel="sed -i '/^$/d'" # Remove empty lines
