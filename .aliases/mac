@@ -7,3 +7,6 @@ alias uinst='brew uninstall'
 function aid() {
 	osascript -e "id of app \"$1\""
 }
+
+# GNU sed
+export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
