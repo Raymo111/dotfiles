@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+# Usage: curl -sSL raymo.ml | bash
+
 # Check for git existence
 if ! command -v git &> /dev/null; then
     echo "git required! Exiting..."

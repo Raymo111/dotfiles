@@ -5,3 +5,6 @@ alias webcam='ffmpeg -f v4l2 -input_format mjpeg -video_size 1920x1080 -i /dev/v
 # Clipboard
 alias copy='xclip -sel clip'
 alias gp="openssl rand -base64 32 | copy" # Gen password
+
+# Mailspring
+alias fms='rm -rf $XDG_CONFIG_HOME/Mailspring/*[Cc]ache*'
