@@ -54,7 +54,7 @@ APT='sudo apt --show-progress --auto-remove'
 alias u='updt'
 alias i='inst'
 alias ui='uinst'
-alias updt="$APT update && $APT full-upgrade -y --fix-broken --fix-missing --fix-policy && $APT autoclean"
+alias updt="sudo apt update && $APT full-upgrade -y --fix-broken --fix-missing --fix-policy && $APT autoclean"
 alias inst="$APT install -y --fix-missing --fix-broken --fix-policy --upgrade"
 alias uinst="$APT purge -y"
 
