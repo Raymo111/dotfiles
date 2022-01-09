@@ -15,29 +15,44 @@ export dldir=$homedir/Downloads
 export scriptdir=$homedir/scripts
 export rc=$homedir/raymocloud
 
-if [ -f $BASH_A ]; then
-	. $BASH_A
-fi
+# Misc vars
+#export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0
+export DISPLAY=:0
+export GPG_TTY=$(tty)
+export EDITOR=vim
+export VISUAL=vim
+export XDG_CONFIG_HOME=~/.config
+export XDG_DATA_DIRS=/usr/local/share/:/usr/share/
+export PATH=$PATH:~/.local/bin:~/.local/share/gem/ruby/3.0.0/bin
 
-if [ -f $BASH_F ]; then
-	. $BASH_F
-fi
+[ -f $BASH_A ] && . $BASH_A
 
-# If not running interactively, don't do anything
-case $- in
-	*i*) ;;
-	*) return;;
-esac
+[ -f $BASH_F ] && . $BASH_F
 
-#figlet "`hostname` >"
-export PATH=$PATH:~/.local/bin
-
+# Eternal bash history.
+# ---------------------
+# Undocumented feature which sets the size to "unlimited".
+# http://stackoverflow.com/questions/9457233/unlimited-bash-history
+export HISTFILESIZE=
+export HISTSIZE=
+export HISTTIMEFORMAT="[%F %T] "
+# Change the file location because certain bash sessions truncate .bash_history file upon close.
+# http://superuser.com/questions/575479/bash-history-truncated-to-500-lines-on-each-login
+#export HISTFILE=~/.bash_eternal_history
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
 shopt -s histappend
+
+# If not running interactively, don't do anything else
+case $- in
+	*i*) ;;
+	*) return;;
+esac
+
+#figlet "`hostname` >"
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -115,6 +130,7 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 if command -v exa &> /dev/null; then
 	alias ll='exa -blaH --git'
 	alias ls=exa
+	alias lll='\ls -lah'
 else
 	alias ll='ls -lah'
 fi
@@ -130,6 +146,11 @@ if command -v bat &> /dev/null; then
 	#export VISUAL=bat
 fi
 
+# stderred
+#if [[ -f /usr/share/stderred/stderred.sh ]]; then
+#	. /usr/share/stderred/stderred.sh
+#fi
+
 # python alias
 alias python='python3'
 
@@ -144,23 +165,9 @@ if ! shopt -oq posix; then
 	fi
 fi
 
-if [ -f $A_COMPL ]; then
-	. $A_COMPL
-fi
-if [ -f $GIT_COMP_BASH ]; then
-	. $GIT_COMP_BASH
-fi
+[ -f $A_COMPL ] && . $A_COMPL
+[ -f $GIT_COMP_BASH ] && . $GIT_COMP_BASH
 
-# Eternal bash history.
-# ---------------------
-# Undocumented feature which sets the size to "unlimited".
-# http://stackoverflow.com/questions/9457233/unlimited-bash-history
-export HISTFILESIZE=
-export HISTSIZE=
-export HISTTIMEFORMAT="[%F %T] "
-# Change the file location because certain bash sessions truncate .bash_history file upon close.
-# http://superuser.com/questions/575479/bash-history-truncated-to-500-lines-on-each-login
-#export HISTFILE=~/.bash_eternal_history
 # Force prompt to write history after every command.
 # http://superuser.com/questions/20900/bash-history-loss
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
@@ -186,12 +193,5 @@ if [ $POWERLINE_ON == 1 ]; then
 	fi
 fi
 
-# Misc
-#export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0
-export DISPLAY=:0
-export KWIN_COMPOSE=X
-export GPG_TTY=$(tty)
-export EDITOR=vim
-export VISUAL=vim
-export XDG_CONFIG_HOME=~/.config
-export XDG_DATA_DIRS=/usr/local/share/:/usr/share/
+# Histfile check
+[[ "$(history | head -1)" == *_START_ ]] || echo -e "\e[31mHISTFILE CUT SHORT\e[m"

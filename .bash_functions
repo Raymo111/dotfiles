@@ -34,6 +34,7 @@ confirm() {
 			;;
 	esac
 }
+export -f confirm
 
 # Remove offending host from ssh known hosts
 fssh() {

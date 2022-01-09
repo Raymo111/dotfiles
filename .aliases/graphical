@@ -5,6 +5,7 @@ alias webcamb='ffmpeg -f v4l2 -input_format mjpeg -video_size 160x120 -i /dev/vi
 
 # Clipboard
 alias copy='xclip -sel clip'
+alias paste='xclip -o'
 alias gp="openssl rand -base64 32 | copy" # Gen password
 
 # Mailspring

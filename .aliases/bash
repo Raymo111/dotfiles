@@ -1,35 +1,39 @@
 # File locations
 PRIV_A=~/.aliases/private
 DISTRO_A=~/.aliases/distro
+GRAPHICAL_A=~/.aliases/graphical
 BASHRC=~/.bashrc
 BASH_FUNC=~/.bash_functions
 SSH_CONFIG=~/.ssh/config
 
 # Programs
 CAT=cat
+if command -v bat &> /dev/null; then
+	CAT_OPTS='-l bash'
+fi
 GREP='grep -i'
 EDIT=vim
 
 # Private Aliases
-if [ -f $PRIV_A ]; then
-    . $PRIV_A
-fi
+[ -f $PRIV_A ] && . $PRIV_A
 
 # Public Aliases
 # Cfg
 ## List
-alias la="$CAT $BASH_A"
-alias lp="$CAT $PRIV_A"
-alias lad="$CAT $DISTRO_A"
-#alias lp="$CAT ~/.bash_profile"
-alias lb="$CAT $BASHRC"
-alias lf="$CAT $BASH_FUNC"
+alias la="$CAT $CAT_OPTS $BASH_A"
+alias lp="$CAT $CAT_OPTS $PRIV_A"
+alias lad="$CAT $CAT_OPTS $DISTRO_A"
+alias lag="$CAT $CAT_OPTS $GRAPHICAL_A"
+#alias lp="$CAT $CAT_OPTS ~/.bash_profile"
+alias lb="$CAT $CAT_OPTS $BASHRC"
+alias lf="$CAT $CAT_OPTS $BASH_FUNC"
 alias lssh="$CAT $SSH_CONFIG"
 
 ## Grep
 alias lag="la | $GREP"
 alias lpg="lp | $GREP"
 alias ladg="lad | $GREP"
+alias lagg="lag | $GREP"
 alias lbg="lb | $GREP"
 alias lfg="lf | $GREP"
 alias lsshg="lssh | $GREP"
@@ -38,6 +42,7 @@ alias lsshg="lssh | $GREP"
 alias ea="$EDIT $BASH_A"
 alias ep="$EDIT $PRIV_A"
 alias ead="$EDIT $DISTRO_A"
+alias eag="$EDIT $GRAPHICAL_A"
 alias eb="$EDIT $BASHRC"
 #alias ep="$EDIT ~/.bash_profile"
 alias ef="$EDIT $BASH_FUNC"
@@ -54,7 +59,7 @@ APT='sudo apt --show-progress --auto-remove'
 alias u='updt'
 alias i='inst'
 alias ui='uinst'
-alias updt="sudo apt update && $APT full-upgrade -y --fix-broken --fix-missing --fix-policy && $APT autoclean"
+alias updt="$APT update && $APT full-upgrade -y --fix-broken --fix-missing --fix-policy && $APT autoclean"
 alias inst="$APT install -y --fix-missing --fix-broken --fix-policy --upgrade"
 alias uinst="$APT purge -y"
 
@@ -68,6 +73,7 @@ alias nf='neofetch'
 alias d='cd $dldir'
 #alias diff='diff --strip-trailing-cr'
 alias py='python3'
+alias ser='. /usr/share/stderred/stderred.sh'
 
 # Grep
 alias hg="history | $GREP"
@@ -76,6 +82,7 @@ alias lg="ls | $GREP"
 alias llg="ll | $GREP"
 
 # File
+alias sl=ls
 alias rm='rm -I'
 alias led='find . -type d -empty' # List empty directories
 alias guc="grep -v '^ *#'" # Grep uncommented lines
@@ -94,10 +101,10 @@ alias sctl='sudo systemctl'
 alias uctl='systemctl --user'
 
 # Net
-YDL='youtube-dl -o "%(title)s.%(ext)s"'
+YDL='youtube-dl -o "%(title)s.%(ext)s" --default-search "ytsearch"'
 alias m3r="$YDL -x -f bestaudio --audio-format mp3"
 alias m4r=$YDL
-alias m4d="$YDL --downloader aria2c"
+alias m4d="$YDL --external-downloader aria2c"
 alias ipi='curl -s ifconfig.co'
 alias ds='dig +short'
 
@@ -113,7 +120,8 @@ alias nicedate="date +'%F %T %Z'"
 # CTF
 alias rhex='head -c 8 /dev/urandom | xxd -ps'
 
-# Arch aliases (overwriting default ubuntu ones)
-if [ -f $DISTRO_A ]; then
-    . $DISTRO_A
-fi
+# Distro aliases (overwriting default Debian ones)
+[ -f $DISTRO_A ] && . $DISTRO_A
+
+# Graphical aliases
+[ -f $GRAPHICAL_A ] && . $GRAPHICAL_A
