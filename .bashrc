@@ -194,4 +194,4 @@ if [ $POWERLINE_ON == 1 ]; then
 fi
 
 # Histfile check
-[[ "$(history | head -1)" == *_START_ ]] || echo -e "\e[31mHISTFILE CUT SHORT\e[m"
+[[ "$(sed '2q;d' $HISTFILE)" == *_START_ ]] || echo -e "\e[31mHISTFILE CUT SHORT\e[m"
