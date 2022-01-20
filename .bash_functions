@@ -70,3 +70,7 @@ grb() {
 	git push origin -u $2
 	git push origin --delete $1
 }
+
+pc() {
+	ping $1.csclub.uwaterloo.ca
+}
