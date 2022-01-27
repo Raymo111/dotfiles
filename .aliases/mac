@@ -1,7 +1,7 @@
 # Pkg
-alias updt='brew update && brew upgrade'
-alias inst='brew install'
-alias uinst='brew uninstall'
+alias u='brew update && brew upgrade'
+alias i='brew install'
+alias ui='brew uninstall'
 
 # Application ID
 function aid() {

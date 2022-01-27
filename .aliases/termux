@@ -1,4 +1,4 @@
 # Pkg
-alias updt='pkg upgrade -y'
-alias inst='pkg install'
-alias uinst='pkg remove'
+alias u='pkg upgrade -y'
+alias i='pkg install'
+alias ui='pkg remove'
