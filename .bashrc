@@ -9,6 +9,9 @@ A_COMPL=~/scripts/alias_completion.sh
 GIT_COMP_DIR=/usr/share/git/completion
 GIT_COMP_BASH=$GIT_COMP_DIR/git-completion.bash
 GIT_COMP_PROMPT=$GIT_COMP_DIR/git-prompt.sh
+BASH_BLESH=/usr/share/blesh/ble.sh 
+#[[ $- == *i* ]] && [ -f $BASH_BLESH ] && source "$BASH_BLESH" --rcfile "$HOME/.blerc"
+
 export homedir=$HOME # For WSL where $HOME is the Linux home but I might want a Windows Home
 export gitdir=$homedir/Git
 export dldir=$homedir/Downloads
@@ -195,3 +198,6 @@ fi
 
 # Histfile check
 [[ "$(sed '2q;d' $HISTFILE)" == *_START_ ]] || echo -e "\e[31mHISTFILE CUT SHORT\e[m"
+
+# Ble.sh
+#[ -f $BASH_BLESH ] && [[ ${BLE_VERSION-} ]] && ble-attach
