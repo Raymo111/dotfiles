@@ -1,3 +1,5 @@
+# vi: ft=bash
+
 # Pkg
 alias u='pkg upgrade -y'
 alias i='pkg install'

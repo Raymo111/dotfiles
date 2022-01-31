@@ -1,3 +1,5 @@
+# vi: ft=bash
+
 # HW
 alias keys='xev -event mouse -event keyboard'
 alias webcam='ffmpeg -f v4l2 -input_format mjpeg -video_size 1920x1080 -i /dev/video0 -vf format=yuyv422 -f v4l2 /dev/video2'

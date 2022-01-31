@@ -1,3 +1,5 @@
+# vi: ft=bash
+
 # File locations
 PRIV_A=~/.aliases/private
 DISTRO_A=~/.aliases/distro
@@ -56,12 +58,9 @@ alias uf=". $BASH_FUNC"
 
 # Pkg
 APT='sudo apt --show-progress --auto-remove'
-alias u='updt'
-alias i='inst'
-alias ui='uinst'
-alias updt="$APT update && $APT full-upgrade -y --fix-broken --fix-missing --fix-policy && $APT autoclean"
-alias inst="$APT install -y --fix-missing --fix-broken --fix-policy --upgrade"
-alias uinst="$APT purge -y"
+alias u="$APT update && $APT full-upgrade -y --fix-broken --fix-missing --fix-policy && $APT autoclean"
+alias i="$APT install -y --fix-missing --fix-broken --fix-policy --upgrade"
+alias ui="$APT purge -y"
 
 # Bash
 alias r='fc -s'
@@ -88,7 +87,6 @@ alias led='find . -type d -empty' # List empty directories
 alias guc="grep -v '^ *#'" # Grep uncommented lines
 alias rel="sed -i '/^$/d'" # Remove empty lines
 alias sv='sudo vim'
-alias t='sudo mv --force -t ~/.local/share/Trash/files/'
 alias fown='sudo chown -R $(whoami) ~'
 alias filecount='find . -type f | wc -l'
 alias cpv='rsync -ah --info=progress2'

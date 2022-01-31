@@ -1,3 +1,5 @@
+# vi: ft=bash
+
 # Pkg
 alias u='brew update && brew upgrade'
 alias i='brew install'

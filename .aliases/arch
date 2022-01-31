@@ -1,3 +1,5 @@
+# vi: ft=bash
+
 # Pkg
 alias u='yay'
 alias i='yay -S'

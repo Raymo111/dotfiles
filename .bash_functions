@@ -1,3 +1,5 @@
+# vi: ft=bash
+
 cl() {
 	DIR="$*";
 	# if no DIR given, go home
@@ -73,4 +75,13 @@ grb() {
 
 pc() {
 	ping $1.csclub.uwaterloo.ca
+}
+
+t() {
+    trashdir="$HOME/.local/share/Trash"
+    for f in $@; do
+        rp=$(realpath -s $f | sed "s_/u[0-9]\+/_/u/_") && \
+        mv -ft "$trashdir/files/" $f && \
+        echo -e "[Trash Info]\nPath=$rp\nDeletionDate=$(date -Iseconds)" > "$trashdir/info/$(basename "$rp").trashinfo"
+    done
 }
