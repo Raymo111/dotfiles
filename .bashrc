@@ -10,7 +10,6 @@ GIT_COMP_DIR=/usr/share/git/completion
 GIT_COMP_BASH=$GIT_COMP_DIR/git-completion.bash
 GIT_COMP_PROMPT=$GIT_COMP_DIR/git-prompt.sh
 BASH_BLESH=/usr/share/blesh/ble.sh 
-#[[ $- == *i* ]] && [ -f $BASH_BLESH ] && source "$BASH_BLESH" --rcfile "$HOME/.blerc"
 
 export homedir=$HOME # For WSL where $HOME is the Linux home but I might want a Windows Home
 export gitdir=$homedir/Git
@@ -27,46 +26,6 @@ export VISUAL=vim
 export XDG_CONFIG_HOME=~/.config
 export XDG_DATA_DIRS=/usr/local/share/:/usr/share/
 export PATH=$PATH:~/.local/bin:~/.local/share/gem/ruby/3.0.0/bin
-
-[ -f $BASH_A ] && . $BASH_A
-
-[ -f $BASH_F ] && . $BASH_F
-
-# Eternal bash history.
-# ---------------------
-# Undocumented feature which sets the size to "unlimited".
-# http://stackoverflow.com/questions/9457233/unlimited-bash-history
-export HISTFILESIZE=
-export HISTSIZE=
-export HISTTIMEFORMAT="[%F %T] "
-# Change the file location because certain bash sessions truncate .bash_history file upon close.
-# http://superuser.com/questions/575479/bash-history-truncated-to-500-lines-on-each-login
-#export HISTFILE=~/.bash_eternal_history
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
-
-# append to the history file, don't overwrite it
-shopt -s histappend
-
-# If not running interactively, don't do anything else
-case $- in
-	*i*) ;;
-	*) return;;
-esac
-
-#figlet "`hostname` >"
-
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
-
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
-
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # Color Variables
 black='\[\033[0;30m\]'
@@ -113,6 +72,47 @@ fi
 PS1="$red$L1C[$WHITE\u$red@$CYAN\h $DEB_VER$magenta\w$red]$RED$yellow$GIT_PROMPT$NC\n$red$L2C$PSS$NC "
 #PS1="[\u@\h \W]\$PSS "
 PS2="$C1>$NC"
+
+# Blesh
+
+[ -f $BASH_A ] && . $BASH_A
+[ -f $BASH_F ] && . $BASH_F
+
+# Eternal bash history.
+# ---------------------
+# Undocumented feature which sets the size to "unlimited".
+# http://stackoverflow.com/questions/9457233/unlimited-bash-history
+export HISTFILESIZE=
+export HISTSIZE=
+export HISTTIMEFORMAT="[%F %T] "
+# Change the file location because certain bash sessions truncate .bash_history file upon close.
+# http://superuser.com/questions/575479/bash-history-truncated-to-500-lines-on-each-login
+#export HISTFILE=~/.bash_eternal_history
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# If not running interactively, don't do anything else
+case $- in
+	*i*) ;;
+	*) return;;
+esac
+
+#figlet "`hostname` >"
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -200,4 +200,5 @@ fi
 [[ "$(sed '2q;d' $HISTFILE)" == *_START_ ]] || echo -e "\e[31mHISTFILE CUT SHORT\e[m"
 
 # Ble.sh
-#[ -f $BASH_BLESH ] && [[ ${BLE_VERSION-} ]] && ble-attach
+[[ $- == *i* ]] && [ -f $BASH_BLESH ] && source "$BASH_BLESH" --rcfile "$HOME/.blerc"
+[ -f $BASH_BLESH ] && [[ ${BLE_VERSION-} ]] && ble-attach
