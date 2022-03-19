@@ -1,7 +1,7 @@
 # vi: ft=bash
 
 # Pkg
-alias u='yay'
+alias u='yay && yes | yay -Sc && yes | yay -Scc'
 alias i='yay -S'
 alias ui='yay -Rsu'
 alias fp='sudo rm -rf /var/lib/pacman/db.lck' # Fix pacman lock
