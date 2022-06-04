@@ -131,9 +131,9 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 
 # some more ls aliases
 if command -v exa &> /dev/null; then
-	alias ll='exa -blaH --git'
+	alias ll='exa -blaHF --git'
 	alias ls=exa
-	alias lll='\ls -lah'
+	alias lll='\ls -Flah'
 else
 	alias ll='ls -lah'
 fi
