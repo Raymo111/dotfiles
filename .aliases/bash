@@ -73,6 +73,7 @@ alias d='cd $dldir'
 #alias diff='diff --strip-trailing-cr'
 alias py='python3'
 alias ser='. /usr/share/stderred/stderred.sh'
+alias j='journalctl -xr'
 
 # Grep
 alias hg="history | $GREP"
