@@ -1,4 +1,4 @@
-# vi: ft=bash
+#!/usr/bin/env bash
 
 # Pkg
 alias u='yay && yes | yay -Sc && yes | yay -Scc'
@@ -7,6 +7,7 @@ alias ui='yay -Rsu'
 alias qi='yay -Qi'
 alias fp='sudo rm -rf /var/lib/pacman/db.lck' # Fix pacman lock
 alias r5m='curl -s "https://archlinux.org/mirrorlist/?country=CA&country=US&protocol=https&use_mirror_status=on" | sed -e "s/^#Server/Server/" -e "/^#/d" | rankmirrors -n 5 - | sudo tee /etc/pacman.d/mirrorlist' # Rank top 5 mirrors
+# shellcheck disable=SC2154
 alias lrip='pacman -Qi | grep -P "^(Name|Install Date)" | sed -r ":a;N;s/Name\s+: (.*)\nInstall Date\s+: (.*)/\2\t\1/" | while read pkg_date pkg_name; do echo -e $(date +%F\ %T --date="$pkg_date") '\t' $pkg_name; done | sort | tail -n' # List recently installed packages
 
 # SysCtl
