@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+# shellcheck disable=all
+
 # https://superuser.com/a/437508/906542
 # Automatically add completion for all aliases to commands having completion functions
 function alias_completion {
@@ -21,6 +24,7 @@ function alias_completion {
     # read in "<alias> '<aliased command>' '<command args>'" lines from defined aliases
     local line; while read line; do
         eval "local alias_tokens; alias_tokens=($line)" 2>/dev/null || continue # some alias arg patterns cause an eval parse error
+        # shellcheck disable=SC2154
         local alias_name="${alias_tokens[0]}" alias_cmd="${alias_tokens[1]}" alias_args="${alias_tokens[2]# }"
 
         # skip aliases to pipes, boolean control structures and other command lists
@@ -65,5 +69,6 @@ function alias_completion {
         new_completion="${new_completion% *} $alias_name"
         echo "$new_completion" >> "$tmp_file"
     done < <(alias -p | sed -Ene "s/$alias_regex/\1 '\2' '\3'/p")
+    # shellcheck disable=SC1090
     source "$tmp_file" && rm -f "$tmp_file"
 }; alias_completion
