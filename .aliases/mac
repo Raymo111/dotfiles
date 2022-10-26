@@ -1,4 +1,4 @@
-# vi: ft=bash
+#!/usr/bin/env bash
 
 # Pkg
 alias u='brew update && brew upgrade'
