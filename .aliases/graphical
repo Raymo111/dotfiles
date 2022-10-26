@@ -1,4 +1,4 @@
-# vi: ft=bash
+#!/usr/bin/env bash
 
 # HW
 alias keys='xev -event mouse -event keyboard'
