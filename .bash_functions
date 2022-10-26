@@ -1,4 +1,4 @@
-# vi: ft=bash
+#!/usr/bin/env bash
 
 cl() {
 	DIR="$*";
@@ -10,17 +10,18 @@ cl() {
 }
 
 rotatepdfcw() {
-	pdftk $1 cat 1-endeast output $2
+	pdftk "$1" cat 1-endeast output "$2"
 }
 
 rotatepdfccw() {
-	pdftk $1 cat 1-endwest output $2
+	pdftk "$1" cat 1-endwest output "$2"
 }
 
 formfind() {
 	tmp=$(mktemp)
-	wget $1 -O "$tmp"
-	perl $scriptdir/formfind.pl < "$tmp"
+	wget "$1" -O "$tmp"
+	# shellcheck disable=SC2154
+	perl "$scriptdir"/formfind.pl < "$tmp"
 	rm "$tmp"
 }
 
@@ -46,6 +47,7 @@ fssh() {
 aurcommit() {
 	MSG=$*
 	if [[ -z "$1" ]]; then
+		# shellcheck disable=SC2162
 		read -p "Message: " MSG
 	fi
 	updpkgsums
@@ -57,7 +59,7 @@ aurcommit() {
 
 # Curecoin worth
 cure() {
-	r==$(curl -s https://chainz.cryptoid.info/cure/address.dws?BLHuRzniSzyzvfaDEqCeXKPsNXLRLZw9p2.htm | grep with)
+	r=$(curl -s https://chainz.cryptoid.info/cure/address.dws?BLHuRzniSzyzvfaDEqCeXKPsNXLRLZw9p2.htm | grep with)
 	r=${r#*with }
 	r=${r%</small*}
 	r=${r//<small>/}
@@ -67,21 +69,21 @@ cure() {
 
 # Git rename branch
 grb() {
-	git checkout $1
-	git branch -m $2
-	git push origin -u $2
-	git push origin --delete $1
+	git checkout "$1"
+	git branch -m "$2"
+	git push origin -u "$2"
+	git push origin --delete "$1"
 }
 
 pc() {
-	ping $1.csclub.uwaterloo.ca
+	ping "$1".csclub.uwaterloo.ca
 }
 
 t() {
     trashdir="$HOME/.local/share/Trash"
-    for f in $@; do
-        rp=$(realpath -s $f | sed "s_/u[0-9]\+/_/u/_") && \
-        mv -ft "$trashdir/files/" $f && \
+    for f in "$@"; do
+        rp=$(realpath -s "$f" | sed "s_/u[0-9]\+/_/u/_") && \
+        mv -ft "$trashdir/files/" "$f" && \
         echo -e "[Trash Info]\nPath=$rp\nDeletionDate=$(date -Iseconds)" > "$trashdir/info/$(basename "$rp").trashinfo"
     done
 }
