@@ -9,8 +9,8 @@ if ! command -v git &> /dev/null; then
 fi
 
 # Clone repo, cd, run install
-cd ~
+cd ~ || exit
 git clone https://github.com/Raymo111/dotfiles.git ~/dotfiles
-cd dotfiles
+cd dotfiles || exit
 ./install.sh
 cd ..
