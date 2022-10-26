@@ -24,7 +24,7 @@ mkdir -p output;
 # Slack's emoji JSON brings an unwanted escape character "\". We need to remove it.
 # We'll also remove unwanted quote marks `"` and curly braces "{"  "}"
 
-RAW_LIST=$(cat "${INPUT}" | tr ",{" "\\n" | sed -E 's/[\\"{}]//g')
+RAW_LIST=$(< "${INPUT}" tr ",{" "\\n" | sed -E 's/[\\"{}]//g')
 
 # Separate into Custom Emoji (Ignoring slack's default ones) and Aliases
 
