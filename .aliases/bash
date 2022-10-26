@@ -101,7 +101,7 @@ alias uctl='systemctl --user'
 
 # Net
 YDL='yt-dlp -o "%(title)s.%(ext)s" --downloader aria2c --prefer-free-formats --embed-thumbnail --embed-metadata --sponsorblock-mark all --default-search "ytsearch"'
-alias m3r="[[ $PWD =~ ^$rc/Music ]] || { confirm 'cd rc/Music?' && cd $rc/Music/ ;}; $YDL -x --audio-quality 0 -f bestaudio --audio-format mp3"
+alias m3r="[[ \$PWD =~ ^$rc/Music/?.* ]] || { confirm 'cd rc/Music?' && cd $rc/Music/;}; $YDL -x --audio-quality 0 -f bestaudio --audio-format mp3"
 alias m4r="$YDL --embed-subs"
 alias ipi='curl -s ifconfig.co'
 alias ds='dig +short'
