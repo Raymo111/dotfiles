@@ -1,7 +1,7 @@
 #!/bin/bash
 if [ -z "$1" ]
 then
-	read -p "Movie name: " movie
+	read -rp "Movie name: " movie
 else
 	movie="$*"
 fi
@@ -21,7 +21,8 @@ xdotool key Tab Tab Tab Home Down Down Return
 sleep 3
 xdotool key Ctrl+W
 link=${link#*/}
-unzip $dldir/${link}.zip
-rm $dldir/${link}.zip
+# shellcheck disable=SC2154
+unzip "$dldir/${link}".zip
+rm "$dldir/${link}".zip
 #echo "https://www.yifysubtitles.com/${link}.zip" | xclip -selection c
 #echo "Link copied to clipboard!"
