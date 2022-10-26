@@ -1,4 +1,6 @@
 #!/bin/sh
+# shellcheck disable=SC2034
+
 USER="Raymo111"
 REPO="dotfiles"
 OLD_EMAIL="old@email.com"
@@ -6,7 +8,7 @@ CORRECT_NAME="Raymond Li"
 CORRECT_EMAIL="new@email.com"
 
 git clone --bare "https://github.com/$USER/$REPO/"
-cd "$REPO.git"
+cd "$REPO.git" || exit
 
 git filter-branch --env-filter '
 
