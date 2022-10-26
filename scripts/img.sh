@@ -16,17 +16,19 @@ user="r389li"
 
 mkdir -p $path
 name=$1
+# shellcheck disable=SC2162
 [ -z "$name" ] && read -p "filename >" name
 if [[ $name == *"/"* ]]; then
-	echo "Error: Filename `$name` contains slashes."
+	echo "Error: Filename $($name) contains slashes."
 	exit 1
 fi
+# shellcheck disable=SC2034
 hash wslpath && winpath="$(wslpath -m $path)/$name.$ext"
 path="$path$name.$ext"
 paste
 #file $path # sanity check
-scp $path "$user@csclub.uwaterloo.ca:www/" || exit 1
-rm $path || echo "Error: Failed to remove `$path`."
+scp "$path" "$user@csclub.uwaterloo.ca:www/" || exit 1
+rm "$path" || echo "Error: Failed to remove $($path)."
 url="https://csclub.uwaterloo.ca/~$user/$name.$ext"
-copy $url
+copy "$url"
 echo "Done, url ($url) copied!"
