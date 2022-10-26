@@ -130,5 +130,5 @@ alias rhex='head -c 8 /dev/urandom | xxd -ps'
 [ -f $DISTRO_A ] && . $DISTRO_A
 
 # Graphical aliases
-# shellcheck source=graphical
+# shellcheck source=.aliases/graphical
 [ -f $GRAPHICAL_A ] && . $GRAPHICAL_A

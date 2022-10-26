@@ -9,9 +9,6 @@
 # 	chmod +x download.sh
 # 	./download.sh emoji.json
 
-
-
-
 # Input File
 INPUT="$1"
 
@@ -38,7 +35,11 @@ ALIAS_LIST=$( echo "${RAW_LIST}" | grep ":alias:" | sed 's/:alias:/ /' )
 # First download all the emoji
 echo "${EMOJI_LIST}" |
 while read -r line || [[ -n "$line" ]]; do
-	parts=($line)
+	# split line into parts
+	parts=()
+	while IFS=' ' read -ra part; do
+		parts+=("${part[@]}")
+	done <<< "$line"
 	url=${parts[1]}
 	name=${parts[0]}
 	extension=${url##*.}
@@ -51,7 +52,11 @@ done;
 # Now duplicate all the aliases
 echo "${ALIAS_LIST}" |
 while read -r line || [[ -n "$line" ]]; do
-	parts=($line)
+	# split line into parts
+	parts=()
+	while IFS=' ' read -ra part; do
+		parts+=("${part[@]}")
+	done <<< "$line"
 	alias=${parts[0]}
 	source=${parts[1]}
 
