@@ -56,7 +56,7 @@ if [[ $(locale charmap) == "UTF-8" ]]; then
 	L1C=┌
 	L2C=└
 fi
-if command -v lsb_release &> /dev/null; then
+if [ ! -f "/etc/arch-release" ] && command -v lsb_release &> /dev/null; then
 	DEB_VER="($(lsb_release -cs)) "
 fi
 if [ -f $GIT_COMP_PROMPT ]; then
@@ -219,3 +219,6 @@ fi
 # shellcheck disable=SC1090
 [[ $- == *i* ]] && [ -f $BASH_BLESH ] && source "$BASH_BLESH" --rcfile "$HOME/.blerc"
 [ -f $BASH_BLESH ] && [[ ${BLE_VERSION-} ]] && ble-attach
+
+# shellcheck disable=SC1090
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
