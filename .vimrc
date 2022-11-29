@@ -21,6 +21,11 @@ nnoremap <S-Tab> <<_
 inoremap <S-Tab> <C-D>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
+inoremap <M-C-H> <C-W>
+nnoremap <M-C-H> db
+inoremap <C-Del> <C-o>de
+nnoremap <C-Del> de
+
 if has("autocmd")
 	au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
 		\| exe "normal! g`\"" | endif
