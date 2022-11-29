@@ -19,7 +19,7 @@ export scriptdir=$homedir/scripts
 export rc=$homedir/raymocloud
 
 # Misc vars
-#export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0
+#export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0 # for WSL
 export DISPLAY=:0
 GPG_TTY=$(tty)
 export GPG_TTY
@@ -27,7 +27,7 @@ export EDITOR=vim
 export VISUAL=vim
 export XDG_CONFIG_HOME=~/.config
 export XDG_DATA_DIRS=/usr/local/share/:/usr/share/
-export PATH=$PATH:~/.local/bin:~/.local/share/gem/ruby/3.0.0/bin
+export PATH=$PATH:~/.local/bin
 
 # Color Variables
 # shellcheck disable=SC2034
@@ -78,7 +78,7 @@ fi
 lbrack='['
 rbrack=']'
 PS1="$red$L1C$lbrack$WHITE\u$red@$CYAN\h $DEB_VER$magenta\w$red$rbrack$RED$yellow$GIT_PROMPT$NC\n$red$L2C$PSS$NC "
-#PS1="[\u@\h \W]\$PSS "
+#PS1="[\u@\h \W]\$PSS " # bash default
 PS2="$C1>$NC"
 
 # shellcheck source=.aliases/bash
@@ -138,7 +138,7 @@ fi
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# some more ls aliases
+# exa/ls aliases
 if command -v exa &> /dev/null; then
 	alias ll='exa -blaHF --git'
 	alias ls=exa
@@ -159,9 +159,13 @@ if command -v bat &> /dev/null; then
 fi
 
 # stderred
-#if [[ -f /usr/share/stderred/stderred.sh ]]; then
-#	. /usr/share/stderred/stderred.sh
-#fi
+STDERRED_ON=0
+if [ $STDERRED_ON == 1 ]; then
+	if [[ -f /usr/share/stderred/stderred.sh ]]; then
+		# shellcheck disable=SC1091
+		. /usr/share/stderred/stderred.sh
+	fi
+fi
 
 # python alias
 alias python='python3'
