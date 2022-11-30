@@ -68,7 +68,8 @@ if [ -f $GIT_COMP_PROMPT ]; then
 	export GIT_PS1_SHOWUPSTREAM="auto"
 	export GIT_PS1_SHOWCOLORHINTS=1
 	export GIT_PS1_HIDE_IF_PWD_IGNORED=1
-	GIT_PROMPT="$(__git_ps1)"
+	# shellcheck disable=SC2016
+	GIT_PROMPT='$(__git_ps1)'
 fi
 if [ "$(id -u)" -eq 0 ]; then
 	PSS='#'
