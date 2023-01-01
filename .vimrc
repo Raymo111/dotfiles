@@ -36,6 +36,20 @@ if has ('nvim')
 	"Reset cursor to Konsole default on leave
 	au VimLeave * set guicursor=a:ver25-blinkwait175-blinkon200-blinkoff175
 
+	inoremap <silent><expr> <TAB>
+    \ coc#pum#visible() ? coc#_select_confirm() :
+    \ coc#expandableOrJumpable() ?
+    \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+    \ CheckBackspace() ? "\<TAB>" :
+    \ coc#refresh()
+
+    function! CheckBackspace() abort
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~# '\s'
+    endfunction
+
+    let g:coc_snippet_next = '<tab>'
+
 	call plug#begin('~/.vim/plugged')
 		"File tree
 		Plug 'nvim-tree/nvim-web-devicons' " icons
@@ -86,6 +100,8 @@ if has ('nvim')
 	let g:presence_reading_text        = "Reading %s"
 	let g:presence_workspace_text      = "Working on %s"
 	let g:presence_line_number_text    = "Line %s out of %s"
+
+"lua script section
 lua << EOF
 	-- disable netrw at the very start of your init.lua (strongly advised)
 	vim.g.loaded_netrw = 1
