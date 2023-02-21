@@ -5,7 +5,7 @@ drives=()
 while IFS='' read -r line; do array+=("$line"); done < <(sudo blkid | awk '{print substr($1, 0, length($1) - 1)}')
 
 for drive in "${drives[@]}"; do
-	sudo dd if="$drive" bs=128 count=1 status=none | hexdump -C | grep -q FVE-FS && bl[$i]=${drive} && ((i++))
+	sudo dd if="$drive" bs=128 count=1 status=none | hexdump -C | grep -q FVE-FS && bl[i]=${drive} && ((i++))
 done
 
 if [[ ${#bl[@]} == 0 ]]; then
