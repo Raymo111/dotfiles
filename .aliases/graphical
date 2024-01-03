@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+xhost +local: >> /dev/null
+
 # KDE
 export QT_QPA_PLATFORMTHEME=kde
 
