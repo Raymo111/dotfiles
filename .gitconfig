@@ -1,0 +1,15 @@
+[user]
+	email = hi@raymond.li
+	name = Raymond Li
+	signingkey = F058DF982DB42F9D
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[credential]
+	helper = store
+[commit]
+	gpgsign = true
+[pull]
+	rebase = true

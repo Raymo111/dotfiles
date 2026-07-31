@@ -6,9 +6,8 @@
 # File locations
 BASH_A=~/.aliases/bash
 BASH_F=~/.bash_functions
-A_COMPL=~/scripts/alias_completion.sh
+A_COMPL=~/scripts/alias_completion_lazy.sh
 GIT_COMP_DIR=/usr/share/git/completion
-GIT_COMP_BASH=$GIT_COMP_DIR/git-completion.bash
 GIT_COMP_PROMPT=$GIT_COMP_DIR/git-prompt.sh
 BASH_BLESH=/usr/share/blesh/ble.sh 
 
@@ -20,7 +19,7 @@ export rc=$homedir/raymocloud
 
 # Misc vars
 #export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0 # for WSL
-export DISPLAY=:0
+#export DISPLAY=:0
 GPG_TTY=$(tty)
 export GPG_TTY
 export EDITOR=vim
@@ -28,6 +27,10 @@ export VISUAL=vim
 export XDG_CONFIG_HOME=~/.config
 export XDG_DATA_DIRS=/usr/local/share/:/usr/share/
 export PATH=$PATH:~/.local/bin
+export OPENCV_LOG_LEVEL=ERROR
+export ANDROID_HOME=$HOME/.android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # Color Variables
 # shellcheck disable=SC2034
@@ -52,7 +55,7 @@ export PATH=$PATH:~/.local/bin
 }
 
 # Prompt
-if [[ $(locale charmap) == "UTF-8" ]]; then
+if [[ ${LC_ALL:-${LC_CTYPE:-$LANG}} == *[Uu][Tt][Ff]-8* ]]; then
 	L1C=┌
 	L2C=└
 fi
@@ -71,7 +74,7 @@ if [ -f $GIT_COMP_PROMPT ]; then
 	# shellcheck disable=SC2016
 	GIT_PROMPT='$(__git_ps1)'
 fi
-if [ "$(id -u)" -eq 0 ]; then
+if [ "$EUID" -eq 0 ]; then
 	PSS='#'
 else
 	PSS='$'
@@ -121,7 +124,23 @@ shopt -s checkwinsize
 #shopt -s globstar
 
 # make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+# Arch ships lesspipe.sh; Debian ships lesspipe — support both.
+# Running Arch's lesspipe.sh at startup just to print LESSOPEN costs ~85ms
+# (it forks `ps` + ~30 tool-detection subprocesses before echoing the snippet),
+# so set LESSOPEN directly. The full script still runs when less opens a file.
+if _lp=$(command -v lesspipe.sh); then export LESSOPEN="|$_lp %s"
+elif command -v lesspipe >/dev/null 2>&1; then eval "$(SHELL=/bin/sh lesspipe)"
+fi
+unset _lp
+
+# less / pager configuration
+export LESS="-R -F -i -M --mouse --wheel-lines=3"
+export SYSTEMD_LESS="FRSXMK --mouse --wheel-lines=3"   # journalctl/systemctl (Shift+drag to select)
+# syntax-highlighted man pages via bat (only if bat is present)
+if command -v bat &> /dev/null; then
+	export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+	export MANROFFOPT="-c"
+fi
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -134,18 +153,19 @@ if [ -x /usr/bin/dircolors ]; then
 	alias grep='grep --color=auto'
 	alias fgrep='fgrep --color=auto'
 	alias egrep='egrep --color=auto'
+	alias diff='diff --color=auto'
 fi
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# exa/ls aliases
-if command -v exa &> /dev/null; then
-	alias ll='exa -blaHF --git'
-	alias ls=exa
+# eza/ls aliases
+if command -v eza &> /dev/null; then
+	alias ll='eza -blagHF --git --smart-group'
+	alias ls=eza
 	alias lll='\ls -Flah'
 else
-	alias ll='ls -lah'
+	alias ll='ls -Flah'
 fi
 
 # ripgrep
@@ -168,8 +188,21 @@ if [ $STDERRED_ON == 1 ]; then
 	fi
 fi
 
-# python alias
-alias python='python3'
+# pyenv (lazy): make shims available immediately so python/pip/etc. resolve to
+# the selected version, but defer the expensive `pyenv init -` (subshell +
+# `pyenv rehash`, ~90ms) until the first actual `pyenv` command.
+PYENV_ON=1
+if [ $PYENV_ON == 1 ]; then
+	export PYENV_ROOT="$HOME/.pyenv"
+	[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+	[[ ":$PATH:" != *":$PYENV_ROOT/shims:"* ]] && export PATH="$PYENV_ROOT/shims:$PATH"
+	export PYENV_SHELL=bash
+	pyenv() {
+		unset -f pyenv
+		eval "$(command pyenv init - bash)"
+		pyenv "$@"
+	}
+fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -184,10 +217,8 @@ if ! shopt -oq posix; then
 	fi
 fi
 
-# shellcheck source=scripts/alias_completion.sh
+# shellcheck source=scripts/alias_completion_lazy.sh
 [ -f $A_COMPL ] && . $A_COMPL
-# shellcheck disable=SC1090
-[ -f $GIT_COMP_BASH ] && . $GIT_COMP_BASH
 
 # Force prompt to write history after every command.
 # http://superuser.com/questions/20900/bash-history-loss

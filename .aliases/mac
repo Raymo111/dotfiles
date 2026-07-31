@@ -12,3 +12,15 @@ function aid() {
 
 # GNU sed
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+
+# git completion
+# On Linux, bash-completion loads git-completion automatically. macOS/Homebrew
+# doesn't ship it in the bash-completion search path, so source it explicitly.
+for _gc in \
+	/opt/homebrew/etc/bash_completion.d/git-completion.bash \
+	/usr/local/etc/bash_completion.d/git-completion.bash \
+	/Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash \
+	/Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-completion.bash; do
+	[ -f "$_gc" ] && { . "$_gc"; break; }
+done
+unset _gc

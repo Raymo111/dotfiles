@@ -1,0 +1,11 @@
+[Unit]
+Description=Load ALC294 SOF sink after PipeWire
+BindsTo=pipewire.service pipewire-pulse.service
+After=pipewire.service pipewire-pulse.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/pactl load-module module-alsa-sink device=plughw:1,0 sink_name=alc294 node.description="Internal Speakers (ALC294)"
+
+[Install]
+WantedBy=default.target

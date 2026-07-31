@@ -1,12 +1,21 @@
 #!/usr/bin/env bash
 
 # Pkg
-alias u='yay && yes | yay -Sc && yes | yay -Scc'
+# if pyenv exists use system python
+#if [ -n "$PYENV_ROOT" ]; then
+#	alias u='pyenv shell system && sudo -v && yay && yes | yay -Sc && yes | yay -Scc && sudo pacman -Qtdq | ifne sudo pacman -Rns - && yay -Pw'
+#else
+	alias u='sudo -v && yay && yes | yay -Sc && yes | yay -Scc && sudo pacman -Qtdq | ifne sudo pacman -Rns - && yay -Pw'
+	alias nu='sudo -v && nice yay && yes | yay -Sc && yes | yay -Scc && sudo pacman -Qtdq | ifne sudo pacman -Rns - && yay -Pw'
+#fi
 alias i='yay -S'
 alias ui='yay -Rsu'
+alias fui='yay -Rdd'
 alias qi='yay -Qi'
+alias ql='yay -Ql'
+alias qo='yay -Qo'
 alias fp='sudo rm -rf /var/lib/pacman/db.lck' # Fix pacman lock
-alias r5m='curl -s "https://archlinux.org/mirrorlist/?country=CA&country=US&protocol=https&use_mirror_status=on" | sed -e "s/^#Server/Server/" -e "/^#/d" | rankmirrors -n 5 - | sudo tee /etc/pacman.d/mirrorlist' # Rank top 5 mirrors
+alias r5m='echo "Old:" && bat -p /etc/pacman.d/mirrorlist && echo "New:" && curl -s "https://archlinux.org/mirrorlist/?country=CA&country=US&protocol=https&use_mirror_status=on" | sed -e "s/^#Server/Server/" -e "/^#/d" | rankmirrors -n 5 - | sudo tee /etc/pacman.d/mirrorlist' # Rank top 5 mirrors
 # shellcheck disable=SC2154,SC1012,SC2026
 alias lrip='pacman -Qi | grep -P "^(Name|Install Date)" | sed -r ":a;N;s/Name\s+: (.*)\nInstall Date\s+: (.*)/\2\t\1/" | while read pkg_date pkg_name; do echo -e $(date +%F\ %T --date="$pkg_date") '\t' $pkg_name; done | sort | tail -n' # List recently installed packages
 

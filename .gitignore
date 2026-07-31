@@ -1,1 +1,48 @@
+# Public repo. Backstop so an accidental `git add -A` can't publish secrets or
+# machine state. Files are added deliberately; app *profiles* aren't enumerated
+# here (that list would itself reveal what's installed).
+
 .trunk/
+
+# Credential material — matched by shape
+.ssh/
+.gnupg/
+*.pem
+*.key
+*.pfx
+*.p12
+*.gpg
+*.kdbx
+id_rsa*
+id_ed25519*
+id_ecdsa*
+*secret*
+*token*
+*credential*
+.netrc
+
+# Credential files by known location
+.pki/
+.pam-gnupg
+.git-credentials
+.aws/
+.kube/
+.docker/config.json
+.config/gh/hosts.yml
+.config/gh/config.yml
+.config/rclone/
+.npmrc
+.emulator_console_auth_token
+.config/kwalletrc
+.config/kwalletmanager5rc
+
+# Machine state / history / resume caches
+*.bak
+watch_later/
+*_history
+.dotfiles_backup*/
+
+# Editor / OS junk
+*.swp
+*~
+.DS_Store

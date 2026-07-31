@@ -64,7 +64,7 @@ cure() {
 	r=${r%</small*}
 	r=${r//<small>/}
 	echo "$r CURE"
-	echo "x=$r*$(curl -sX GET https://rest.coinapi.io/v1/exchangerate/CURE/CAD -H "X-CoinAPI-Key:BAAB8A8A-8B5C-4F8C-8AC3-7923736ECDC7" |jq -r .rate);if(x<1)print 0; x"|bc
+	echo "x=$r*$(curl -sX GET https://rest.coinapi.io/v1/exchangerate/CURE/CAD -H "X-CoinAPI-Key:$COINAPI_KEY" |jq -r .rate);if(x<1)print 0; x"|bc
 }
 
 # Git rename branch

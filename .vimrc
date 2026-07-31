@@ -6,8 +6,9 @@ command Q q
 set clipboard=unnamed
 "set clipboard=unnamedplus
 set whichwrap+=<,>,h,l,[,]
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=4 smarttab
+"set tabstop=4
+set tabstop=8 softtabstop=0
 set number
 set laststatus=2
 nnoremap <expr> <Down> v:count ? 'j' : 'gj'

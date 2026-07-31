@@ -1,0 +1,11 @@
+[Unit]
+Description=Mute microphone and turn off mic LED on login
+After=pipewire.service
+
+[Service]
+Type=oneshot
+ExecStart=%h/scripts/mute-mic.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target
