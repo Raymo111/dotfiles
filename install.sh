@@ -3,6 +3,8 @@
 #
 #   ./install.sh            install (default): link files, backing up anything
 #                           already there to ~/.dotfiles_backup/<timestamp>/
+#   ./install.sh relink     re-establish links a pull/rebase severed (used by the
+#                           git hooks); backs up any differing $HOME file first
 #   ./install.sh reset      undo an install: remove the links we created and
 #                           restore the most recent backup
 #   ./install.sh --help     this help
@@ -14,8 +16,9 @@ REPO=$PWD
 MODE=install
 case ${1:-} in
 	""|install)                 MODE=install ;;
+	relink)                     MODE=relink ;;
 	reset|--reset|uninstall)    MODE=reset ;;
-	-h|--help|help)             sed -n '2,9p' "$0" | sed 's/^# \?//'; exit 0 ;;
+	-h|--help|help)             sed -n '2,11p' "$0" | sed 's/^# \?//'; exit 0 ;;
 	*) echo "unknown argument: $1 (try --help)" >&2; exit 1 ;;
 esac
 
@@ -30,7 +33,7 @@ for_each_target() {   # $1 = callback fn name, called as: cb <repo-rel-src> <abs
 	# Every tracked file except repo meta and the specially-handled .aliases dir
 	while IFS= read -r -d '' f; do   # -d '' pairs with `git ls-files -z` for spaces/newlines in paths
 		case $f in
-			.aliases/*|install.sh|clone-and-install.sh|LICENSE|README.md|.gitignore|.gitattributes)
+			.aliases/*|.githooks/*|install.sh|clone-and-install.sh|LICENSE|README.md|.gitignore|.gitattributes)
 				continue ;;
 		esac
 		"$cb" "$f" "$HOME/$f"
@@ -63,6 +66,31 @@ link() {  # $1 = repo-relative source, $2 = absolute dest
 	echo "  linked   ~/${dst#"$HOME"/}"
 }
 
+# --- relink callback (used by the git hooks after a pull/rebase) ---
+# True when the $HOME copy ($2) is just the pre-pull committed version of repo
+# path ($1) — i.e. stale but recoverable from git, so no backup is needed. Any
+# uncertainty (no ORIG_HEAD, path unknown there) returns false => we back up.
+recoverable_from_git() {
+	local rel=$1 dst=$2 have want
+	have=$(git hash-object "$dst" 2>/dev/null) || return 1
+	want=$(git rev-parse -q --verify "ORIG_HEAD:$rel" 2>/dev/null) || return 1
+	[ "$have" = "$want" ]
+}
+
+relink_target() {  # $1 = repo-relative source, $2 = absolute dest
+	local src=$REPO/$1 dst=$2
+	[ -e "$src" ] || return 0
+	[ "$dst" -ef "$src" ] && return 0                          # link still intact, nothing to do
+	if [ -e "$dst" ] && ! diff -q "$src" "$dst" >/dev/null 2>&1 && ! recoverable_from_git "$1" "$dst"; then
+		backup "$dst"                                          # genuine local divergence -> preserve before adopting repo's
+		echo "  relinked ~/${dst#"$HOME"/} (\$HOME had local changes, backed up)"
+	else
+		echo "  relinked ~/${dst#"$HOME"/}"
+	fi
+	mkdir -p "$(dirname "$dst")"
+	ln -f "$src" "$dst"
+}
+
 # --- reset callback ---
 unlink_target() {  # $1 = repo-relative source, $2 = absolute dest
 	local src=$REPO/$1 dst=$2
@@ -91,10 +119,22 @@ restore_backup() {   # $1 = backup dir; move its contents back into place
 	find "$latest" -depth -type d -empty -delete 2>/dev/null || true   # drop the now-empty backup dir
 }
 
+# ============================= relink ==============================
+if [ "$MODE" = relink ]; then
+	for_each_target relink_target
+	if [ "$backed_up" = 1 ]; then
+		echo "Some \$HOME files differed and were backed up to $BACKUPDIR"
+	else
+		rmdir "$BACKUPDIR" "$HOME/.dotfiles_backup" 2>/dev/null || true
+	fi
+	exit 0
+fi
+
 # ============================== reset ==============================
 if [ "$MODE" = reset ]; then
 	echo "Reverting install (removing our hard links)..."
 	for_each_target unlink_target
+	git config --unset core.hooksPath 2>/dev/null || true   # deactivate our git hooks
 	backup_dir=$(latest_backup)
 	if [ -z "$backup_dir" ]; then
 		echo "No backup found; nothing to restore."
@@ -112,6 +152,9 @@ fi
 
 # ============================= install =============================
 for_each_target link
+
+# activate the git hooks that re-link automatically after future pulls/rebases
+git config core.hooksPath .githooks
 
 # seed the eternal-history sentinel on fresh machines: .bashrc warns
 # "HISTFILE CUT SHORT" unless line 2 of the history file is the _START_ marker.

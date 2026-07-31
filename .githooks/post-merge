@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Runs after `git merge` (including the merge half of `git pull`).
+# Git rewrites changed tracked files, giving them new inodes and severing the
+# hard links into $HOME — so re-establish them. See install.sh's `relink` mode:
+# unchanged links are skipped, and any differing $HOME file is backed up first.
+exec "$(git rev-parse --show-toplevel)/install.sh" relink

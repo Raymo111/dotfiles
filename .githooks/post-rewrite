@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Runs after history-rewriting commands (`git rebase`, `git commit --amend`),
+# which also re-checkout tracked files and thus break the hard links into $HOME.
+# Re-establish them via install.sh's `relink` mode (safe: skips intact links,
+# backs up any differing $HOME file before adopting the repo version).
+exec "$(git rev-parse --show-toplevel)/install.sh" relink
