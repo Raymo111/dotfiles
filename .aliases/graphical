@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-xhost +local: >> /dev/null
+# Allow local (non-network) clients to connect to X; skip if xhost isn't installed
+command -v xhost &> /dev/null && xhost +local: &> /dev/null
 
 # KDE
 export QT_QPA_PLATFORMTHEME=kde
