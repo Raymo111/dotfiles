@@ -67,7 +67,7 @@ alias uf=". $BASH_FUNC"
 
 # Pkg
 APT='sudo apt --show-progress --auto-remove'
-alias u="$APT update && $APT full-upgrade -y --fix-broken --fix-missing --fix-policy && $APT autoclean"
+alias u="$APT update && $APT full-upgrade -y --fix-missing && $APT --fix-broken install -y && $APT autoremove -y && $APT autoclean"
 alias i="$APT install -y --fix-missing --fix-broken --fix-policy --upgrade"
 alias ui="$APT purge -y"
 
