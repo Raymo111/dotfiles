@@ -61,9 +61,6 @@ if has ('nvim')
 		Plug 'nvim-lua/plenary.nvim'
 		Plug 'nvim-telescope/telescope.nvim'
 
-		"Copilot
-		Plug 'github/copilot.vim'
-
 		"Syntax highlighting
 		Plug 'neoclide/coc.nvim', {'branch': 'release'}
 		Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
